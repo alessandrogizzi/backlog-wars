@@ -1,0 +1,61 @@
+{
+  "name": "backlog-wars",
+  "version": "1.0.0-beta.1",
+  "description": "Experimental desktop app to manage your video game backlog: online metadata, game durations, what-to-play draws and a play log.",
+  "main": "./out/main/index.js",
+  "author": {
+    "name": "Alessandro Gizzi",
+    "email": "agizziweb@gmail.com"
+  },
+  "homepage": "https://github.com/alessandrogizzi/backlog-wars",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alessandrogizzi/backlog-wars.git"
+  },
+  "desktopName": "backlog-wars.desktop",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "start": "electron-vite preview",
+    "build": "electron-vite build",
+    "typecheck:node": "tsc -p tsconfig.node.json --noEmit",
+    "typecheck:web": "tsc -p tsconfig.web.json --noEmit",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "smoke": "npm run build && electron . --smoke --user-data-dir=node_modules/.cache/smoke-profile",
+    "icon": "node scripts/make-icon.mjs",
+    "verify": "npm run typecheck && npm run test && npm run build",
+    "dist": "npm run build && electron-builder --linux AppImage",
+    "dist:linux": "npm run build && electron-builder --linux AppImage",
+    "dist:deb": "npm run build && electron-builder --linux dir && node scripts/build-deb.mjs",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "release:beta": "npm run verify && npm run dist:linux && npm run dist:deb"
+  },
+  "dependencies": {
+    "dexie": "^4.4.6",
+    "dexie-react-hooks": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^44.4.5",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^4.0.1",
+    "fake-indexeddb": "^6.2.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.6",
+    "vitest": "^3.2.7"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true,
+    "electron@44.4.5": true
+  }
+}

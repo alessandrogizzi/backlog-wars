@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Builds and packages
+out/
+dist/
+release/
+*.AppImage
+*.deb
+*.dmg
+*.exe
+*.snap
+*.blockmap
+
+# TypeScript/Vite caches and artifacts
+*.tsbuildinfo
+.vite/
+coverage/
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Local working files (not versioned)
+*.local
+.env
+.env.local

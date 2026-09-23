@@ -1,0 +1,148 @@
+/**
+ * Core strings shared by the whole app: navigation, common actions, statuses,
+ * ratings, platform groups, Metacritic tones and error messages.
+ *
+ * English is the source of truth: every key added here must also be added to
+ * the Italian dictionary (the typecheck enforces it).
+ */
+export default {
+  // App shell
+  'app.tagline': 'the backlog is the enemy',
+  'app.addGame': '+ Add game',
+  'app.version': 'v{version}',
+  'app.gamesInLibrary': '{count} games in library',
+  'app.language': 'Language',
+  'app.language.en': 'English',
+  'app.language.it': 'Italiano',
+
+  // Navigation
+  'nav.library': 'Library',
+  'nav.library.hint': 'Your backlog',
+  'nav.picker': 'What do I play?',
+  'nav.picker.hint': 'Random or weighted draw',
+  'nav.tournament': 'Tournament',
+  'nav.tournament.hint': 'Single elimination duels',
+  'nav.sessions': 'Sessions',
+  'nav.sessions.hint': 'Play log',
+  'nav.stats': 'Statistics',
+  'nav.stats.hint': 'Time, effort and satisfaction',
+  'nav.settings': 'Settings',
+  'nav.settings.hint': 'APIs, weights and backup',
+
+  // Common actions
+  'common.save': 'Save',
+  'common.saving': 'Saving…',
+  'common.saveChanges': 'Save changes',
+  'common.cancel': 'Cancel',
+  'common.close': 'Close',
+  'common.delete': 'Delete',
+  'common.edit': 'Edit',
+  'common.add': 'Add',
+  'common.confirm': 'Confirm',
+  'common.search': 'Search',
+  'common.searching': 'Searching…',
+  'common.open': 'Open',
+  'common.update': 'Refresh',
+  'common.retry': 'Retry',
+  'common.back': 'Back',
+  'common.loading': 'Loading…',
+  'common.none': 'None',
+  'common.all': 'All',
+  'common.yes': 'Yes',
+  'common.no': 'No',
+  'common.never': 'never',
+  'common.unknown': 'unknown',
+  'common.of': 'of',
+  'common.optional': 'optional',
+  'common.reset': 'Reset',
+  'common.clearFilters': 'Clear filters',
+  'common.seeAll': 'See all',
+  'common.copy': 'Copy',
+  'common.dash': '—',
+
+  // Game statuses
+  'status.backlog.label': 'In backlog',
+  'status.backlog.short': 'Backlog',
+  'status.backlog.hint': 'To play, sooner or later',
+  'status.playing.label': 'Playing',
+  'status.playing.short': 'Playing',
+  'status.playing.hint': 'Currently playing it',
+  'status.completed.label': 'Completed',
+  'status.completed.short': 'Completed',
+  'status.completed.hint': 'Finished (or dropped with honour)',
+  'status.dropped.label': 'Dropped',
+  'status.dropped.short': 'Dropped',
+  'status.dropped.hint': 'Left aside, not for me',
+  'status.wishlist.label': 'Wishlist',
+  'status.wishlist.short': 'Wishlist',
+  'status.wishlist.hint': "I don't own it yet",
+
+  // Effort (1-5)
+  'effort.1': '1 — relaxing',
+  'effort.2': '2 — light',
+  'effort.3': '3 — medium',
+  'effort.4': '4 — demanding',
+  'effort.5': '5 — brutal',
+
+  // Pleasure (1-5)
+  'pleasure.1': '1 — not for me',
+  'pleasure.2': '2 — so-so',
+  'pleasure.3': '3 — pleasant',
+  'pleasure.4': '4 — I like it a lot',
+  'pleasure.5': '5 — personal masterpiece',
+
+  // Platform groups
+  'group.pc': 'PC',
+  'group.console': 'Consoles',
+  'group.handheld': 'Handhelds',
+  'group.retro': 'Retro',
+  'group.mobile': 'Mobile',
+  'group.vr': 'VR',
+  'group.other': 'Other',
+
+  // Metacritic tones
+  'tone.good': 'positive reviews',
+  'tone.mixed': 'mixed reviews',
+  'tone.bad': 'negative reviews',
+  'tone.none': 'no score yet',
+
+  // Generic labels
+  'label.status': 'Status',
+  'label.platform': 'Platform',
+  'label.genre': 'Genre',
+  'label.genres': 'Genres',
+  'label.tags': 'Tags',
+  'label.priority': 'Priority',
+  'label.effort': 'Effort',
+  'label.pleasure': 'Pleasure',
+  'label.duration': 'Duration',
+  'label.hours': 'hours',
+  'label.minutes': 'minutes',
+  'label.today': 'today',
+  'label.neverPlayed': 'never played',
+  'label.notPlayedYet': 'not played yet',
+  'label.unknownPlatform': 'platform unknown',
+  'label.genreUnknown': 'genre not set',
+
+  // Errors (codes come from the main process, see ProviderError)
+  'error.network': 'Service unreachable ({reason}). Check your connection and try again.',
+  'error.auth': 'The service denied access (401/403): check the API key in Settings.',
+  'error.rateLimit': 'Too many requests (429): wait a few seconds and try again.',
+  'error.http': 'The service replied with error {status}.',
+  'error.parse': 'Unreadable response from the service (invalid JSON).',
+  'error.missingKey': 'A RAWG API key is required. Create one for free at rawg.io/apidocs and paste it in Settings, or use another source.',
+  'error.invalidUrl': 'Invalid address: a full http or https URL is required.',
+  'error.notFound': 'Not found: the service has no data for this item.',
+  'error.forbidden': 'The service rejected the request: the public key may have changed.',
+  'error.unknown': 'Something went wrong: {message}',
+  'error.gameNotFound': 'Game not found.',
+  'error.sessionNotFound': 'Session not found.',
+  'error.noteNotFound': 'Note not found.',
+  'error.noteEmpty': 'The note is empty.',
+  'error.linkNotFound': 'Link not found.',
+  'error.linkMissingUrl': 'Missing address.',
+  'error.invalidJson': 'The selected file is not valid JSON.',
+  'error.invalidBackup': 'The file does not look like a Backlog Wars backup.',
+  'error.timeout': 'The service took too long to answer.',
+  'error.scheme': 'Only http and https addresses are allowed.'
+} as const

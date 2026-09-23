@@ -1,0 +1,45 @@
+appId: dev.backlogwars.app
+productName: Backlog Wars
+copyright: Backlog Wars
+directories:
+  buildResources: build
+  output: release
+files:
+  - out/**
+  - package.json
+  - '!**/*.{map,md,ts}'
+  - '!node_modules/**'
+artifactName: ${name}-${version}-${arch}.${ext}
+asar: true
+linux:
+  # The .deb is built by "npm run dist:deb" (scripts/build-deb.mjs), which does
+  # not depend on fpm/Ruby: Fedora 44 lacks libcrypt.so.1 and fpm won't start.
+  target:
+    - AppImage
+  category: Game
+  icon: build/icon.png
+  syncDesktopName: true
+  maintainer: AG Code <agizziweb@gmail.com>
+  synopsis: Video game backlog with draws, tournaments and a play log
+  description: >-
+    Backlog Wars tracks the games in your backlog, looks up metadata online, draws what to play based on effort and
+    pleasure, and logs time, effort and satisfaction for every session. Everything stays local, no account needed.
+  desktop:
+    entry:
+      Name: Backlog Wars
+      Comment: Pick what to play from your backlog
+      Comment[it]: Scegli cosa giocare dal tuo backlog
+      Categories: Game;Utility;
+win:
+  target:
+    - nsis
+  icon: build/icon.png
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: false
+mac:
+  target:
+    - dmg
+  category: public.app-category.games
+  icon: build/icon.png
