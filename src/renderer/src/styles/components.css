@@ -1129,12 +1129,27 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .game-card-actions {
-  display: flex;
+  display: grid;
+  /* Un terzo a testa: la riga è sempre piena, qualunque cosa la lingua faccia
+     alla lunghezza delle etichette. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-3);
-  flex-wrap: wrap;
   /* Il footer dei pulsanti resta ancorato in fondo alla card. */
   margin-top: auto;
   padding-top: var(--space-2);
+}
+
+/* In tre colonne strette l'etichetta rinuncia al padding orizzontale e viene
+   troncata invece di andare a capo. */
+.game-card-actions .btn {
+  min-width: 0;
+  padding-inline: var(--space-4);
+}
+
+.game-card-actions .btn-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ------------------------------- Detail --------------------------------- */

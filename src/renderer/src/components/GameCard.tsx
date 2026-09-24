@@ -96,13 +96,13 @@ export function GameCard({
 
         <div className="game-card-actions">
           <button type="button" className="btn small primary" onClick={stop(() => onPlay(game))}>
-            ▶ {t('library.card.play')}
+            <span className="btn-label">▶ {t('library.card.play')}</span>
           </button>
           <button type="button" className="btn small ghost" onClick={stop(() => onEdit(game))}>
-            {t('common.edit')}
+            <span className="btn-label">{t('common.edit')}</span>
           </button>
           <button type="button" className="btn small ghost danger" onClick={stop(() => onDelete(game))}>
-            {t('common.delete')}
+            <span className="btn-label">{t('common.delete')}</span>
           </button>
         </div>
       </div>
