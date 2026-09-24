@@ -183,7 +183,7 @@ npm run release:beta # verify + AppImage + deb
 ## 📦 Release
 
 ```bash
-npm run release:beta   # verify (typecheck + 216 tests + build) + AppImage + deb into release/
+npm run release:beta   # verify (tokens + typecheck + 216 tests + build) + AppImage + deb into release/
 npm run dist:linux     # AppImage only
 npm run dist:deb       # .deb only (uses scripts/build-deb.mjs)
 ```
@@ -206,7 +206,7 @@ The order is always: commit, then bump, then tag, then build.
 
 ```bash
 git commit -m "fix: align library card footers"   # one commit per change, no --amend on pushed work
-npm run verify                                    # typecheck + 216 tests + build must be green
+npm run verify                                    # lint:tokens + typecheck + 216 tests + build must be green
 # write the new CHANGELOG.md section and docs/releases/<version>.md, commit them
 npm version prerelease --preid=beta               # 1.0.0-beta.1 -> 1.0.0-beta.2 (commits + tags)
 npm version patch                                 # or: finalises the beta to 1.0.0 / 1.0.1 after it
@@ -277,12 +277,17 @@ src/
     │   └── smoke.ts      # end-to-end self-test
     ├── state/            # React providers (settings, toasts, navigation, live queries)
     ├── components/       # reusable UI (cards, modals, meters, duration bars, notes, links)
-    └── views/            # Library, Detail, What do I play?, Tournament, Sessions, Statistics, Settings
+    ├── views/            # Library, Detail, What do I play?, Tournament, Sessions, Statistics, Settings
+    └── styles/           # design tokens, base layer and components (docs/design-tokens.md)
 ```
 
 **Security**: `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`; the renderer never touches Node and
 everything goes through the preload bridge. HTTP calls to providers happen only in the main process. A CSP restricts
 scripts, styles and images.
+
+**Design system**: the whole look lives in `src/renderer/src/styles/`, split into design tokens, a base layer and the
+component layer, and enforced by `npm run lint:tokens` (no unknown token, no raw colour/spacing/radius outside the
+token file). `docs/design-tokens.md` documents the scales, the rules and how to add a token or a theme.
 
 **Persistence**: IndexedDB through Dexie (tables `games`, `sessions`, `picks`, `notes`, `links`, `settings`) inside the
 Electron user data folder (`Settings → About` shows the exact path). The schema is at **version 4**: v2 moved notes into
@@ -293,6 +298,8 @@ migrations are automatic and keep existing data.
 
 ## ✅ Verification
 
+- `npm run lint:tokens` — design-token guard: every `var()` is declared and no component hardcodes a colour,
+a spacing step, a font size or a radius.
 - `npm test` — **216 unit tests**: useful links (URL normalisation, hosts, Open Graph/Twitter parsing, CRUD, cascade,
   backup), selection engine (including duration fit), library filters and sorting (Metascore and effective time), notes
   (CRUD, timestamps, cascade, backup) and **v1 → v2 → v3 migrations**, declared progress (hours played elsewhere, time
