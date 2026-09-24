@@ -391,6 +391,14 @@
   align-items: center;
 }
 
+/* Two chip rows stacked in a card. The vertical gap belongs to the stack and is
+   twice the gap between the chips, so the rows read as separate groups. */
+.chip-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
 .chip {
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-pill);

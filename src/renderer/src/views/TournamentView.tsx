@@ -129,48 +129,50 @@ export function TournamentView() {
             />
           </div>
         </div>
-        <div className="platform-group-chips">
-          {PLATFORM_GROUPS.map((group) => {
-            const active = filters.groups.includes(group.id)
-            return (
-              <button
-                key={group.id}
-                type="button"
-                className={`chip${active ? ' active' : ''}`}
-                onClick={() =>
-                  patch({
-                    groups: active
-                      ? filters.groups.filter((entry) => entry !== group.id)
-                      : [...filters.groups, group.id as PlatformGroup]
-                  })
-                }
-              >
-                {group.icon} {t(group.labelKey)}
-              </button>
-            )
-          })}
-        </div>
-        <div className="chip-group">
-          {GAME_STATUSES.map((status) => {
-            const active = filters.statuses.includes(status.id)
-            return (
-              <button
-                key={status.id}
-                type="button"
-                className={`chip${active ? ' active' : ''}`}
-                onClick={() =>
-                  patch({
-                    statuses: active
-                      ? filters.statuses.filter((entry) => entry !== status.id)
-                      : [...filters.statuses, status.id as GameStatus]
-                  })
-                }
-              >
-                {t(status.shortKey)}
-              </button>
-            )
-          })}
-          <span className="muted small">{t('play.tournament.poolCount', { count: pool.length })}</span>
+        <div className="chip-stack">
+          <div className="platform-group-chips">
+            {PLATFORM_GROUPS.map((group) => {
+              const active = filters.groups.includes(group.id)
+              return (
+                <button
+                  key={group.id}
+                  type="button"
+                  className={`chip${active ? ' active' : ''}`}
+                  onClick={() =>
+                    patch({
+                      groups: active
+                        ? filters.groups.filter((entry) => entry !== group.id)
+                        : [...filters.groups, group.id as PlatformGroup]
+                    })
+                  }
+                >
+                  {group.icon} {t(group.labelKey)}
+                </button>
+              )
+            })}
+          </div>
+          <div className="chip-group">
+            {GAME_STATUSES.map((status) => {
+              const active = filters.statuses.includes(status.id)
+              return (
+                <button
+                  key={status.id}
+                  type="button"
+                  className={`chip${active ? ' active' : ''}`}
+                  onClick={() =>
+                    patch({
+                      statuses: active
+                        ? filters.statuses.filter((entry) => entry !== status.id)
+                        : [...filters.statuses, status.id as GameStatus]
+                    })
+                  }
+                >
+                  {t(status.shortKey)}
+                </button>
+              )
+            })}
+            <span className="muted small">{t('play.tournament.poolCount', { count: pool.length })}</span>
+          </div>
         </div>
       </section>
 
