@@ -110,6 +110,14 @@ textarea {
   white-space: nowrap;
 }
 
+/* Vertical rhythm: a column whose blocks are evenly spaced, instead of relying
+   on each block remembering its own margin. */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
 /* -------------------------------- Motion -------------------------------- */
 /* Respect the system preference: no transitions, no looping animations. */
 

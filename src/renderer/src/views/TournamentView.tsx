@@ -129,7 +129,7 @@ export function TournamentView() {
             />
           </div>
         </div>
-        <div className="chip-stack">
+        <div className="stack">
           <div className="platform-group-chips">
             {PLATFORM_GROUPS.map((group) => {
               const active = filters.groups.includes(group.id)

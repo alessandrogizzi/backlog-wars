@@ -242,35 +242,38 @@ function SettingsForm({ settings }: { settings: AppSettings }) {
           </Field>
         </div>
 
-        <Field label={t('settings.metacritic.label')} hint={t('settings.metacritic.hint')} wide>
-          <input
-            className="input"
-            value={metacriticKey}
-            placeholder={t('settings.metacritic.placeholder')}
-            onChange={(event) => setMetacriticKey(event.target.value)}
-          />
-        </Field>
+        <div className="stack">
+          <Field label={t('settings.metacritic.label')} hint={t('settings.metacritic.hint')} wide>
+            <input
+              className="input"
+              value={metacriticKey}
+              placeholder={t('settings.metacritic.placeholder')}
+              onChange={(event) => setMetacriticKey(event.target.value)}
+            />
+          </Field>
 
-        <div className="chip-group">
-          <button
-            type="button"
-            className={`chip${hltbAutoEnrich ? ' active' : ''}`}
-            onClick={() => setHltbAutoEnrich((current) => !current)}
-          >
-            ⏳ {t('settings.hltbAuto')}
-          </button>
-          <button
-            type="button"
-            className={`chip${metacriticAutoEnrich ? ' active' : ''}`}
-            onClick={() => setMetacriticAutoEnrich((current) => !current)}
-          >
-            🏅 {t('settings.metacriticAuto')}
-          </button>
+          <div className="chip-group">
+            <button
+              type="button"
+              className={`chip${hltbAutoEnrich ? ' active' : ''}`}
+              onClick={() => setHltbAutoEnrich((current) => !current)}
+            >
+              ⏳ {t('settings.hltbAuto')}
+            </button>
+            <button
+              type="button"
+              className={`chip${metacriticAutoEnrich ? ' active' : ''}`}
+              onClick={() => setMetacriticAutoEnrich((current) => !current)}
+            >
+              🏅 {t('settings.metacriticAuto')}
+            </button>
+          </div>
+
+          <p className="muted small">
+            {t('settings.sources.gogdb')} <code>/data</code>
+            {t('settings.sources.gogdbCache')} {t('settings.sources.metacritic')}
+          </p>
         </div>
-        <p className="muted small">
-          {t('settings.sources.gogdb')} <code>/data</code>
-          {t('settings.sources.gogdbCache')} {t('settings.sources.metacritic')}
-        </p>
       </section>
 
       <section className="card">
