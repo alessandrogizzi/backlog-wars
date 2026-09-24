@@ -1,6 +1,6 @@
 {
   "name": "backlog-wars",
-  "version": "1.0.0-beta.1",
+  "version": "1.1.0-beta.0",
   "description": "Experimental desktop app to manage your video game backlog: online metadata, game durations, what-to-play draws and a play log.",
   "main": "./out/main/index.js",
   "author": {
