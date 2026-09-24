@@ -1,6 +1,6 @@
 # ⚔️ Backlog Wars
 
-**Version: 1.0.0-beta.1** · [changelog](CHANGELOG.md) · [release notes](docs/releases/v1.0.0-beta.1.md)
+**Version: 1.1.0-beta.0** · [changelog](CHANGELOG.md) · [release notes](docs/releases/v1.1.0-beta.0.md)
 
 > ## 🧪 Experimental project — built end to end with DeepSeek Harness
 >
@@ -9,16 +9,21 @@
 > with the **`deepseek-flash`** model (DeepSeek-V4.1-Flash, provider `deepseek-official`, reasoning effort *high*).
 > A human only provided the requirements and reviewed the result.
 >
-> **Cost of the first beta version** (session totals reported by the harness; every feature included):
+> **What the project has cost so far** (tokens summed from the harness transcripts of every session, subagents included;
+> snapshot at v1.1.0-beta.0):
 >
-> | Metric | Value |
-> | --- | --- |
-> | Turns / steps | 13 turns · 430+ agent steps |
-> | Input tokens (cache hit) | 149.2 M |
-> | Input tokens (cache miss) | 0.18 M |
-> | Output tokens | 0.55 M |
-> | **Total processed** | **≈ 149.9 M tokens** |
-> | **Estimated cost** | **≈ $0.80 off-peak · ≈ $1.61 peak** |
+> | Metric | 1.0.0-beta.1 | 1.1.0-beta.0 | Project |
+> | --- | --- | --- | --- |
+> | Turns · agent steps | 29 · 866 | 12 · 359 | **41 · 1 225** |
+> | Input tokens (cache hit) | 246.5 M | 84.5 M | **331.0 M** |
+> | Input tokens (cache miss) | 0.78 M | 0.17 M | **0.95 M** |
+> | Output tokens | 1.07 M | 0.26 M | **1.33 M** |
+> | **Total processed** | 248.3 M | 85.0 M | **≈ 333 M tokens** |
+> | **Estimated cost** (off-peak / peak) | ≈ $1.50 / $3.00 | ≈ $0.43 / $0.87 | **≈ $1.93 / ≈ $3.86** |
+>
+> The 1.0.0-beta.1 changelog entry reports 149.9 M tokens: that was the harness total *at the moment those notes were
+> written*, before the last turns of the same session. The column above re-counts that whole session from its transcript,
+> delegated sessions included.
 >
 > Prices are DeepSeek's published rates for `deepseek-flash`
 > ([api-docs.deepseek.com](https://api-docs.deepseek.com/quick_start/pricing/)): $0.003 / $0.006 per million cache-hit

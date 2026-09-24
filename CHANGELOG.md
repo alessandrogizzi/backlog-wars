@@ -3,6 +3,61 @@
 All notable changes to **Backlog Wars**.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.1.0-beta.0] — 2026-09-25
+
+The interface gets a design system instead of a 2 250-line stylesheet, and the library cards show the comparison that
+matters: the average time a game needs next to the time you played. No storage or API change — open the app and your
+data is where you left it.
+
+> 🧪 **Experimental project.** The codebase, the tests, the documentation and the release pipeline are written by an AI
+> agent running inside **DeepSeek Harness** with the **`deepseek-flash`** model (DeepSeek-V4.1-Flash, reasoning effort
+> *high*). This release consumed **≈85.0 M tokens** (84.5 M cache-hit input, 0.17 M cache-miss input, 0.26 M output) for
+> an estimated cost of **≈$0.43 off-peak / ≈$0.87 peak**; the whole project so far totals **≈333.3 M tokens**
+> (**≈$1.93 / ≈$3.86**) at DeepSeek's published rates.
+
+### Added
+
+**Design system**
+- **Design tokens** as the single source of truth: primitives (colour ramps) plus a semantic layer — `--color-*`,
+  `--space-*`, `--radius-*`, `--font-size-*`, `--shadow-*`, `--duration-*`, `--z-*` — where translucent variants are
+  built with `color-mix()`, so a theme has one place to change.
+- The stylesheet is split into `styles/tokens.css` (values), `styles/base.css` (reset, focus, scrollbars, utilities) and
+  `styles/components.css` (layout, components, views).
+- **`npm run lint:tokens`**, part of `npm run verify`: it fails on a `var()` that is not declared and on a raw colour,
+  spacing step, font size or radius outside the token file.
+- **`docs/design-tokens.md`**: the three layers, the scales, the approved rhythm, how to add a token or a theme.
+
+**Library cards**
+- **Playtime meter**: the average time the game needs (HowLongToBeat) on the left, the time you played on the right,
+  with a bar relating them, a `progressbar` role and a tooltip carrying the full detail.
+- The **Metascore badge on the cover** sits on a near-opaque, blur-backed plate with the score band colouring border and
+  digits, so it stays readable on a bright cover and on a dark one.
+
+### Changed
+
+- **One control height** for buttons and fields (`--control-height-md`), so a form row is pixel-aligned.
+- **Card footers** are three equal columns that fill the width in every language; labels clip with an ellipsis instead
+  of wrapping.
+- **One spacing rhythm**: 16px gutters for card grids, 20px card and modal padding, 24/32/60 for the main column.
+- **Keyboard focus is visible** on every interactive element, `prefers-reduced-motion` is honoured, numbers use tabular
+  figures and `color-scheme: dark` keeps native widgets dark.
+- Tagline: *"il backlog è solo nella tua testa"* / *"the backlog is all in your mind"*.
+
+### Removed
+
+- The **Metascore preview in the card body**: the badge on the cover already carries the score, the ★ Must Play mark and
+  the tooltip.
+- Every **"time left" figure on a card**, and the one in the duration badge: how much a game still needs is a guess, so
+  the card shows measured facts (length, time played) instead. The detail view and the statistics keep the estimates
+  they are built on.
+
+### Fixed
+
+- **Seven pairs of blocks inside cards sat at 0px** — the hint on top of the chips, the note on top of the button row, one
+  chip row on the next, a heading on what preceded it — in Settings, *What do I play?* and Tournament.
+- A **chip row wrapping one line further** in the library filters after the padding snap, and the application window
+  growing past the card footer on narrow cards.
+
 ## [1.0.0-beta.1] — 2026-09-24
 
 First public beta. The app is complete and usable every day, but this is a beta: APIs and the data schema may still
