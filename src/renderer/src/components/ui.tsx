@@ -348,12 +348,12 @@ export function MinutesInput({
 
 /* -------------------------- Durations and retrogaming ------------------- */
 
-/** Compact badge with the main story duration. */
+/** Compact badge with the main story duration. No "time left": how much a game
+ * still needs is a guess, the length HowLongToBeat measured is a fact. */
 export function DurationBadge({ game }: { game: Partial<DurationFields> }) {
   const { t } = useI18n()
   const reference = referenceMinutes(game)
   if (!reference) return null
-  const remaining = remainingMinutes(game)
   const played = playedMinutes(game) > 0
   return (
     <span
@@ -362,18 +362,15 @@ export function DurationBadge({ game }: { game: Partial<DurationFields> }) {
         played ? ` · ${t('ui.duration.played', { duration: formatDuration(playedMinutes(game)) })}` : ''
       }`}
     >
-      ⏳{' '}
-      {played && remaining !== undefined
-        ? t('ui.duration.remaining', { duration: formatDuration(remaining) })
-        : formatDuration(reference)}
+      ⏳ {formatDuration(reference)}
     </span>
   )
 }
 
 /**
- * Time played against the average time the game needs (HowLongToBeat): the two
- * numbers and a bar, so a card shows the comparison at a glance instead of a
- * length in one place and a playtime in another.
+ * The average time the game needs against the time played: the estimate on the
+ * left, my hours on the right, and a bar relating them. Deliberately without a
+ * "time left" figure, which would be a guess dressed up as a number.
  */
 export function PlaytimeMeter({ game }: { game: Partial<DurationFields> }) {
   const { t } = useI18n()
@@ -396,22 +393,23 @@ export function PlaytimeMeter({ game }: { game: Partial<DurationFields> }) {
     )
   }
 
-  const remaining = remainingMinutes(game) ?? 0
   const percent = Math.round((completionRatio(game) ?? 0) * 100)
   const summary = `${t('ui.duration.playedOf', {
     played: formatMinutes(played),
     reference: formatDuration(reference)
-  })} · ${percent}% · ${t('ui.duration.missing')} ${formatDuration(remaining)}${
-    declared > 0 ? ` ${t('ui.duration.declared', { declared: formatMinutes(declared) })}` : ''
-  }`
+  })}${declared > 0 ? ` ${t('ui.duration.declared', { declared: formatMinutes(declared) })}` : ''}`
 
   return (
     <div className="playtime" title={summary}>
       <span className="playtime-head">
-        <span className="playtime-played">⏱ {formatMinutes(played)}</span>
-        <span className="playtime-separator">/</span>
-        <span className="playtime-reference">{formatDuration(reference)}</span>
-        <span className="playtime-remaining">{t('ui.playtime.percent', { percent: String(percent) })}</span>
+        <span className="playtime-side">
+          <span className="playtime-label">⏳ {t('ui.playtime.average')}</span>
+          <span className="playtime-reference">{formatDuration(reference)}</span>
+        </span>
+        <span className="playtime-side playtime-side-end">
+          <span className="playtime-label">⏱ {t('ui.playtime.mine')}</span>
+          <span className="playtime-played">{formatMinutes(played)}</span>
+        </span>
       </span>
       <span
         className="playtime-track"

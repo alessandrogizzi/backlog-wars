@@ -54,8 +54,8 @@ Settings. Code comments are still mostly in Italian.
   **time left**, last session).
 - Badges for **retro** and **DOSBox** games, plus the **Metascore badge on the cover**: colour-coded score, review
   count and ★ Must Play (or "no Metascore yet").
-- **Playtime against the estimate**: every card shows the time you played next to the HowLongToBeat length, with a
-  progress bar and the percentage, so "how far in am I?" is one glance instead of two numbers.
+- **Playtime against the estimate**: every card puts the average time the game needs and the time you played side by
+  side, with a progress bar relating them. Deliberately **no "time left"**: that figure would be a guess.
 - **🏅 Update missing Metascores** button: looks up scores for the games that don't have one yet, one at a time.
 
 ### Already started and hours already played

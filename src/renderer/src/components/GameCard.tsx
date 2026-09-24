@@ -4,7 +4,7 @@ import type { Game } from '../db/types'
 import { hasStarted } from '../logic/duration'
 import { observedPleasure } from '../logic/picker'
 import { useI18n } from '../i18n'
-import { Cover, DurationBadge, PlaytimeMeter, RatingDots, RetroChip, StatusBadge } from './ui'
+import { Cover, PlaytimeMeter, RatingDots, RetroChip, StatusBadge } from './ui'
 
 export function GameCard({
   game,
@@ -62,10 +62,11 @@ export function GameCard({
           {game.releaseYear ? <span className="muted">{game.releaseYear}</span> : null}
         </div>
 
-        <div className="game-card-flags">
-          <DurationBadge game={game} />
-          {game.usesDosbox === 1 ? <span className="badge dosbox-flag">{t('library.card.dosbox')}</span> : null}
-        </div>
+        {game.usesDosbox === 1 ? (
+          <div className="game-card-flags">
+            <span className="badge dosbox-flag">{t('library.card.dosbox')}</span>
+          </div>
+        ) : null}
 
         <PlaytimeMeter game={game} />
 

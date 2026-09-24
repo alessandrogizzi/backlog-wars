@@ -85,8 +85,9 @@ The token migration was also the moment to fix the inconsistencies it exposed:
 - **Depth is consistent**: recessed rows inside cards all use the same `--color-surface-veil` instead of five
   near-identical transparencies.
 - **Data does not jitter**: scores, stats, durations and session numbers use tabular figures.
-- **A card shows progress, not two numbers**: the `.playtime` meter puts the time played against the HowLongToBeat
-  estimate with a bar and a percentage, replacing the Metascore preview that duplicated the badge on the cover.
+- **A card shows progress, not two numbers**: the `.playtime` meter puts the average time needed and the time played
+  on one line, with a bar relating them and no "time left" figure (a guess dressed up as data), replacing the
+  Metascore preview that duplicated the badge on the cover.
 - **Native widgets match**: `color-scheme: dark` on `:root` keeps scrollbars and form controls dark.
 
 ## Adding a token
