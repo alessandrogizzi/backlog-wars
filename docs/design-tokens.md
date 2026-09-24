@@ -75,6 +75,9 @@ The token migration was also the moment to fix the inconsistencies it exposed:
   padding and the modal header/body/footer share a 20px gutter. The main column is 24/32/60 instead of 26/30/60.
 - **Controls line up**: buttons and fields share `--control-height-md`, so a form row is pixel-aligned instead of
   drifting by a pixel or two.
+- **The Metascore badge on a cover is always readable**: it sits on a near-opaque, blur-backed plate
+  (`--color-scrim-strong`) whose border and digits take the score band colour, instead of a translucent fill that a
+  bright cover used to swallow.
 - **Keyboard focus is visible**: `base.css` gives every interactive element an accent ring on `:focus-visible`, and the
   component layer does the same for clickable cards, chips, segments, rows and rating dots. Pointer interaction is
   unchanged.

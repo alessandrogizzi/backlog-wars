@@ -904,17 +904,52 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: var(--radius-lg);
 }
 
+/* Metascore badge on the card cover. It floats over arbitrary artwork, so the
+   plate is near opaque and blur-backed instead of translucent: a bright cover
+   (or a dark one) can no longer swallow it. The score band colours the border
+   and the digits, never the fill. */
 .metacritic {
   position: absolute;
   top: var(--space-8);
   right: var(--space-8);
-  padding: var(--space-1) var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  padding: var(--space-2) var(--space-5);
   border-radius: var(--radius-sm);
-  background: var(--color-scrim);
-  color: var(--color-success);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-scrim-strong);
+  color: var(--color-text);
   font-weight: var(--font-weight-extrabold);
   font-size: var(--font-size-3);
+  line-height: var(--line-height-none);
   font-family: var(--font-mono);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(6px);
+}
+
+/* Two classes beat the plain .metascore-* rules further down the file, so the
+   plate survives while the band still tints the badge. */
+.metacritic.metascore-good,
+.metacritic.metascore-mixed,
+.metacritic.metascore-bad {
+  background: var(--color-scrim-strong);
+}
+
+.metacritic.metascore-good {
+  border-color: var(--color-success);
+  color: var(--color-success-soft);
+}
+
+.metacritic.metascore-mixed {
+  border-color: var(--color-gold);
+  color: var(--color-gold-soft);
+}
+
+.metacritic.metascore-bad {
+  border-color: var(--color-danger);
+  color: var(--color-danger-soft);
 }
 
 .game-card-body {

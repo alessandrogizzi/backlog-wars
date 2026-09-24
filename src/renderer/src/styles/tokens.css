@@ -88,6 +88,9 @@
 
   /* Anything drawn on top of content: modal scrim and floating score badges. */
   --color-scrim: color-mix(in srgb, var(--ink-1000) 72%, transparent);
+  /* Near-opaque plate for labels that float over cover art, where a translucent
+     fill would be swallowed by a bright image. */
+  --color-scrim-strong: color-mix(in srgb, var(--ink-1000) 90%, transparent);
 
   /* ========================================================================
      2. SEMANTIC — borders and text
