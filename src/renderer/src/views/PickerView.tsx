@@ -132,58 +132,60 @@ export function PickerView() {
         <section className="card picker-filters">
           <h2 className="section-title">{t('play.filters.title')}</h2>
 
-          <div className="field">
-            <span className="field-label">{t('play.filters.statuses')}</span>
-            <div className="chip-group">
-              {GAME_STATUSES.map((status) => {
-                const active = filters.statuses.includes(status.id)
-                return (
-                  <button
-                    key={status.id}
-                    type="button"
-                    className={`chip${active ? ' active' : ''}`}
-                    onClick={() =>
-                      patchFilters({
-                        statuses: active
-                          ? filters.statuses.filter((entry) => entry !== status.id)
-                          : [...filters.statuses, status.id as GameStatus]
-                      })
-                    }
-                  >
-                    {t(status.shortKey)}
-                  </button>
-                )
-              })}
+          <div className="stack">
+            <div className="field">
+              <span className="field-label">{t('play.filters.statuses')}</span>
+              <div className="chip-group">
+                {GAME_STATUSES.map((status) => {
+                  const active = filters.statuses.includes(status.id)
+                  return (
+                    <button
+                      key={status.id}
+                      type="button"
+                      className={`chip${active ? ' active' : ''}`}
+                      onClick={() =>
+                        patchFilters({
+                          statuses: active
+                            ? filters.statuses.filter((entry) => entry !== status.id)
+                            : [...filters.statuses, status.id as GameStatus]
+                        })
+                      }
+                    >
+                      {t(status.shortKey)}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
-          </div>
 
-          <div className="form-grid">
-            <label className="field">
-              <span className="field-label">{t('label.platform')}</span>
-              <select
-                className="select"
-                value={filters.platform}
-                onChange={(event) => patchFilters({ platform: event.target.value })}
-              >
-                <option value="all">{t('common.all')}</option>
-                {platforms.map((entry) => (
-                  <option key={entry} value={entry}>
-                    {entry}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="field">
-              <span className="field-label">{t('label.genre')}</span>
-              <select className="select" value={filters.genre} onChange={(event) => patchFilters({ genre: event.target.value })}>
-                <option value="all">{t('common.all')}</option>
-                {genres.map((entry) => (
-                  <option key={entry} value={entry}>
-                    {entry}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="form-grid">
+              <label className="field">
+                <span className="field-label">{t('label.platform')}</span>
+                <select
+                  className="select"
+                  value={filters.platform}
+                  onChange={(event) => patchFilters({ platform: event.target.value })}
+                >
+                  <option value="all">{t('common.all')}</option>
+                  {platforms.map((entry) => (
+                    <option key={entry} value={entry}>
+                      {entry}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="field">
+                <span className="field-label">{t('label.genre')}</span>
+                <select className="select" value={filters.genre} onChange={(event) => patchFilters({ genre: event.target.value })}>
+                  <option value="all">{t('common.all')}</option>
+                  {genres.map((entry) => (
+                    <option key={entry} value={entry}>
+                      {entry}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </div>
 
           <Slider
@@ -324,33 +326,35 @@ export function PickerView() {
             onChange={(value) => patchWeights({ duration: value })}
             display={`${weights.duration}%`}
           />
-          <p className="muted small">
-            {t('play.weights.total', { total: weightTotal })}
-            {weightTotal === 0 ? ` ${t('play.weights.allZero')}` : ''}
-          </p>
+          <div className="stack">
+            <p className="muted small">
+              {t('play.weights.total', { total: weightTotal })}
+              {weightTotal === 0 ? ` ${t('play.weights.allZero')}` : ''}
+            </p>
 
-          <div className="view-actions">
-            <button
-              type="button"
-              className="btn ghost small"
-              onClick={() =>
-                setFilters({
-                  ...DEFAULT_PICK_FILTERS,
-                  statuses: [...DEFAULT_PICKABLE_STATUSES],
-                  targetEffort: settings.defaultEffortTarget,
-                  maxEffort: settings.defaultMaxEffort,
-                  minPleasure: settings.defaultMinPleasure,
-                  avoidRecentDays: settings.avoidRecentDays,
-                  maxHours: settings.defaultMaxHours,
-                  timeAvailableHours: settings.timeAvailableHours
-                })
-              }
-            >
-              {t('common.clearFilters')}
-            </button>
-            <button type="button" className="btn ghost small" onClick={() => void saveDefaults()}>
-              {t('play.saveDefaults')}
-            </button>
+            <div className="view-actions">
+              <button
+                type="button"
+                className="btn ghost small"
+                onClick={() =>
+                  setFilters({
+                    ...DEFAULT_PICK_FILTERS,
+                    statuses: [...DEFAULT_PICKABLE_STATUSES],
+                    targetEffort: settings.defaultEffortTarget,
+                    maxEffort: settings.defaultMaxEffort,
+                    minPleasure: settings.defaultMinPleasure,
+                    avoidRecentDays: settings.avoidRecentDays,
+                    maxHours: settings.defaultMaxHours,
+                    timeAvailableHours: settings.timeAvailableHours
+                  })
+                }
+              >
+                {t('common.clearFilters')}
+              </button>
+              <button type="button" className="btn ghost small" onClick={() => void saveDefaults()}>
+                {t('play.saveDefaults')}
+              </button>
+            </div>
           </div>
         </section>
 

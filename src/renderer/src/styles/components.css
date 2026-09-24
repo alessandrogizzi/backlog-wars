@@ -252,6 +252,12 @@
   letter-spacing: var(--tracking-wide);
 }
 
+/* A heading that opens a group inside a card needs air above it; the first one
+   sits under the card padding and needs none. */
+.section-title:not(:first-child) {
+  margin-top: var(--space-8);
+}
+
 .section-head {
   display: flex;
   align-items: baseline;

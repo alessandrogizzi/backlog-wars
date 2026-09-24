@@ -373,23 +373,25 @@ function SettingsForm({ settings }: { settings: AppSettings }) {
 
       <section className="card">
         <h2 className="section-title">💾 {t('settings.backup.title')}</h2>
-        <p className="muted small">{t('settings.backup.note')}</p>
-        <div className="view-actions">
-          <button type="button" className="btn primary" onClick={() => void exportData()} disabled={busy}>
-            ⬇️ {t('settings.backup.export')}
-          </button>
-          <button type="button" className="btn ghost" onClick={() => void importData('merge')} disabled={busy}>
-            ⬆️ {t('settings.backup.importMerge')}
-          </button>
-          <button type="button" className="btn ghost" onClick={() => void importData('replace')} disabled={busy}>
-            ♻️ {t('settings.backup.importReplace')}
-          </button>
-          <button type="button" className="btn ghost" onClick={() => void seed()} disabled={busy}>
-            🧪 {t('settings.backup.seed')}
-          </button>
-          <button type="button" className="btn ghost danger" onClick={() => void wipe()} disabled={busy}>
-            🗑️ {t('settings.backup.wipe')}
-          </button>
+        <div className="stack">
+          <p className="muted small">{t('settings.backup.note')}</p>
+          <div className="view-actions">
+            <button type="button" className="btn primary" onClick={() => void exportData()} disabled={busy}>
+              ⬇️ {t('settings.backup.export')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => void importData('merge')} disabled={busy}>
+              ⬆️ {t('settings.backup.importMerge')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => void importData('replace')} disabled={busy}>
+              ♻️ {t('settings.backup.importReplace')}
+            </button>
+            <button type="button" className="btn ghost" onClick={() => void seed()} disabled={busy}>
+              🧪 {t('settings.backup.seed')}
+            </button>
+            <button type="button" className="btn ghost danger" onClick={() => void wipe()} disabled={busy}>
+              🗑️ {t('settings.backup.wipe')}
+            </button>
+          </div>
         </div>
       </section>
 
