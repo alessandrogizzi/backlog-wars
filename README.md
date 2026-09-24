@@ -190,25 +190,48 @@ npm run dist:deb       # .deb only (uses scripts/build-deb.mjs)
 
 Artifacts land in `release/` as `backlog-wars-<version>-<arch>.<ext>`; release notes live in `docs/releases/`.
 
-To publish the beta on GitHub, once a remote exists:
+### Versioning and commits
+
+Work is committed as it happens; a version number is assigned only when a set of changes is released. History is
+**never rewritten**: commits that have been pushed are not amended, rebased or force-pushed, so every tag keeps
+pointing at the exact tree that produced the published artifacts.
+
+| Change | Version |
+| --- | --- |
+| Fixes, internal work, documentation | patch — `1.0.0` finalising the beta, then `1.0.1`; in beta: next `-beta.N` |
+| New backwards-compatible features | minor — `1.1.0` |
+| Breaking changes to storage or the public interface | major — `2.0.0` |
+
+The order is always: commit, then bump, then tag, then build.
 
 ```bash
-git tag -a v1.0.0-beta.1 -m "Backlog Wars 1.0.0-beta.1"
+git commit -m "fix: align library card footers"   # one commit per change, no --amend on pushed work
+npm run verify                                    # typecheck + 216 tests + build must be green
+# write the new CHANGELOG.md section and docs/releases/<version>.md, commit them
+npm version prerelease --preid=beta               # 1.0.0-beta.1 -> 1.0.0-beta.2 (commits + tags)
+npm version patch                                 # or: finalises the beta to 1.0.0 / 1.0.1 after it
+npm run release:beta                              # build the artifacts with the new version
 git push origin main --tags
-gh release create v1.0.0-beta.1 release/*.AppImage release/*.deb release/SHA256SUMS.txt \
-  --title "Backlog Wars 1.0.0-beta.1" --notes-file docs/releases/v1.0.0-beta.1.md --prerelease
 ```
+
+`npm version` refuses to run on a dirty tree: that is the guard keeping the bump, the notes and the artifacts in sync.
+Useful bumps: `prerelease --preid=beta` increments the beta suffix (`-beta.2` → `-beta.3`), `preminor --preid=beta`
+opens the next minor as a beta (`1.1.0-beta.0`), and `patch` on `1.0.0-beta.2` ships it as `1.0.0`.
 
 ### Publishing
 
 ```bash
-npm run release:beta                    # verify + AppImage + deb into release/
 git push origin main --tags             # SSH remote (git@github.com:<owner>/backlog-wars.git)
-gh release create v1.0.0-beta.1 release/*.AppImage release/*.deb release/SHA256SUMS.txt \
-  --title "Backlog Wars 1.0.0-beta.1" --notes-file docs/releases/v1.0.0-beta.1.md --prerelease
 ```
 
-Without the `gh` CLI, create the release from the repository's *Releases* page and attach the three files from
+Then create the release from the repository's *Releases* page, or with the `gh` CLI:
+
+```bash
+gh release create v1.0.0-beta.2 release/*.AppImage release/*.deb release/SHA256SUMS.txt \
+  --title "Backlog Wars 1.0.0-beta.2" --notes-file docs/releases/v1.0.0-beta.2.md --prerelease
+```
+
+Without the `gh` CLI, create the release from the *Releases* page and attach the three files from
 `release/`. If your remote is HTTPS, GitHub asks for a **personal access token** (not the account password) as the
 password; switching the remote to SSH avoids it:
 
