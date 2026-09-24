@@ -5,7 +5,7 @@
  */
 export default {
   // App shell
-  'app.tagline': 'il backlog è il nemico',
+  'app.tagline': 'il backlog è solo nella tua testa',
   'app.addGame': '+ Aggiungi gioco',
   'app.version': 'v{version}',
   'app.gamesInLibrary': '{count} giochi in libreria',
