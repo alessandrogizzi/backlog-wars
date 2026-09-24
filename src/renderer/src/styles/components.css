@@ -999,6 +999,78 @@ input[type='range']::-webkit-slider-thumb {
   font-size: var(--font-size-3);
 }
 
+/* Badges that qualify the game rather than describe it: length, DOSBox. */
+.game-card-flags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ------------------ Time played vs average time needed ------------------ */
+
+/* The bar relates my playtime to the HowLongToBeat estimate, so the card
+   answers "how far in am I?" instead of showing a length and a playtime as
+   two unrelated numbers. */
+
+.playtime {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.playtime-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--font-size-2);
+  font-variant-numeric: var(--font-variant-numeric);
+}
+
+.playtime-played {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-highlight);
+}
+
+.playtime-separator {
+  color: var(--color-text-muted);
+}
+
+.playtime-reference {
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.playtime-remaining {
+  margin-left: auto;
+  color: var(--color-text-muted);
+}
+
+.playtime-track {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-track);
+  overflow: hidden;
+}
+
+.playtime-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-meter);
+  transition: width var(--duration-slower) var(--ease-standard);
+}
+
+/* No estimate available: the playtime keeps its own line. */
+.playtime-solo {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2);
+  color: var(--color-text-muted);
+  font-variant-numeric: var(--font-variant-numeric);
+}
+
 .meters {
   display: flex;
   flex-direction: column;
@@ -1020,20 +1092,6 @@ input[type='range']::-webkit-slider-thumb {
   flex: 0 0 58px;
 }
 
-.game-card-flags {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-}
-
-.game-card-flags-left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  min-width: 0;
-}
 
 .game-card-stats {
   display: flex;
@@ -1888,60 +1946,6 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 /* ----------------------- Metacritic preview on cards -------------------- */
-
-.metacritic-preview {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-3);
-  flex: 0 0 auto;
-  margin-left: auto;
-  text-align: right;
-}
-
-.metacritic-preview-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-2);
-  width: 54px;
-}
-
-.metacritic-preview-text {
-  display: block;
-  max-width: 100%;
-  font-size: var(--font-size-2);
-  color: var(--color-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.metascore-track {
-  display: block;
-  height: 3px;
-  border-radius: var(--radius-pill);
-  background: var(--color-track);
-  overflow: hidden;
-}
-
-.metascore-fill {
-  display: block;
-  height: 100%;
-  border-radius: var(--radius-pill);
-}
-
-.fill-good {
-  background: var(--gradient-good);
-}
-
-.fill-mixed {
-  background: var(--gradient-mixed);
-}
-
-.fill-bad {
-  background: var(--gradient-bad);
-}
 
 /* ================================== Note ================================ */
 

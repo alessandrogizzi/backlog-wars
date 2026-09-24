@@ -19,6 +19,7 @@ export default {
   'ui.duration.playedOf': 'Played {played} of {reference}',
   'ui.duration.declared': '(of which {declared} declared by hand)',
   'ui.duration.missing': 'missing',
+  'ui.playtime.percent': '{percent}%',
   'ui.retro.label': 'Retro',
   'ui.retro.title': 'Retro platform: playable via emulator or original hardware',
   'ui.emulator.retro': 'Retro platform',

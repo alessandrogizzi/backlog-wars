@@ -70,13 +70,7 @@ export default {
 
   // Game card
   'library.card.metascore': 'Metascore {score}',
-  'library.card.metascoreOutOf100': 'Metascore {score}/100',
   'library.card.sentimentSuffix': ' · {sentiment}',
-  'library.card.reviewsSuffix': ' · {count} reviews',
-  'library.card.mustPlaySuffix': ' · ★ Must Play',
-  'library.card.metacritic': 'Metacritic',
-  'library.card.metascoreUnavailableHint':
-    'Metascore not available yet: use “Update missing Metascores” at the top',
   'library.card.dosbox': 'DOSBox',
   'library.card.favoriteAdd': 'Add to favorites',
   'library.card.favoriteRemove': 'Remove from favorites',

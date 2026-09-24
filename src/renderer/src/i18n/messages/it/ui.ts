@@ -16,6 +16,7 @@ export default {
   'ui.duration.playedOf': 'Giocato {played} su {reference}',
   'ui.duration.declared': '(di cui {declared} dichiarate a mano)',
   'ui.duration.missing': 'mancano',
+  'ui.playtime.percent': '{percent}%',
   'ui.retro.label': 'Retro',
   'ui.retro.title': "Piattaforma d'epoca: giocabile via emulatore o hardware originale",
   'ui.emulator.retro': "Piattaforma d'epoca",

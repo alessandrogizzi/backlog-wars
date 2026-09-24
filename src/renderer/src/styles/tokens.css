@@ -170,9 +170,6 @@
   --gradient-pleasure: linear-gradient(140deg, var(--orchid-400), var(--color-rose));
   --gradient-priority: linear-gradient(140deg, var(--color-gold), var(--orange-400));
   --gradient-satisfaction: linear-gradient(140deg, var(--color-highlight), var(--green-400));
-  --gradient-good: linear-gradient(90deg, var(--green-500), var(--green-300));
-  --gradient-mixed: linear-gradient(90deg, var(--gold-500), var(--gold-300));
-  --gradient-bad: linear-gradient(90deg, var(--red-400), var(--red-300));
   --gradient-sidebar: linear-gradient(180deg, rgba(20, 16, 48, 0.9), rgba(8, 10, 20, 0.9));
   --gradient-panel: linear-gradient(
     180deg,

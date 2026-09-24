@@ -370,6 +370,63 @@ export function DurationBadge({ game }: { game: Partial<DurationFields> }) {
   )
 }
 
+/**
+ * Time played against the average time the game needs (HowLongToBeat): the two
+ * numbers and a bar, so a card shows the comparison at a glance instead of a
+ * length in one place and a playtime in another.
+ */
+export function PlaytimeMeter({ game }: { game: Partial<DurationFields> }) {
+  const { t } = useI18n()
+  const reference = referenceMinutes(game)
+  const played = playedMinutes(game)
+  const declared = manualMinutes(game)
+
+  const playedTitle =
+    declared > 0
+      ? t('library.card.playedTimeManual', { time: formatMinutes(played), manual: formatMinutes(declared) })
+      : t('library.card.playedTimeSessions')
+
+  // No estimate to compare with: the playtime on its own is still worth a line.
+  if (!reference) {
+    if (played <= 0) return null
+    return (
+      <p className="playtime playtime-solo" title={playedTitle}>
+        ⏱ {formatMinutes(played)}
+      </p>
+    )
+  }
+
+  const remaining = remainingMinutes(game) ?? 0
+  const percent = Math.round((completionRatio(game) ?? 0) * 100)
+  const summary = `${t('ui.duration.playedOf', {
+    played: formatMinutes(played),
+    reference: formatDuration(reference)
+  })} · ${percent}% · ${t('ui.duration.missing')} ${formatDuration(remaining)}${
+    declared > 0 ? ` ${t('ui.duration.declared', { declared: formatMinutes(declared) })}` : ''
+  }`
+
+  return (
+    <div className="playtime" title={summary}>
+      <span className="playtime-head">
+        <span className="playtime-played">⏱ {formatMinutes(played)}</span>
+        <span className="playtime-separator">/</span>
+        <span className="playtime-reference">{formatDuration(reference)}</span>
+        <span className="playtime-remaining">{t('ui.playtime.percent', { percent: String(percent) })}</span>
+      </span>
+      <span
+        className="playtime-track"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={percent}
+        aria-label={summary}
+      >
+        <span className="playtime-fill" style={{ width: `${percent}%` }} />
+      </span>
+    </div>
+  )
+}
+
 /** "Retro" chip for vintage platforms. */
 export function RetroChip({ platform }: { platform: string }) {
   const { t } = useI18n()

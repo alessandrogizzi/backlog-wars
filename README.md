@@ -52,8 +52,10 @@ Settings. Code comments are still mostly in Italian.
 - Search, filters (text, status, platform, **platform group**, genre, favourites, **Metascore 75+**, **no score**) and
   many sort orders (title, **Metascore**, effort, demonstrated pleasure, priority, time played, **estimated duration**,
   **time left**, last session).
-- Badges for **retro** and **DOSBox** games, plus the **Metacritic preview**: colour-coded score, 0-100 bar, review count
-  and ★ Must Play (or "no Metascore yet").
+- Badges for **retro** and **DOSBox** games, plus the **Metascore badge on the cover**: colour-coded score, review
+  count and ★ Must Play (or "no Metascore yet").
+- **Playtime against the estimate**: every card shows the time you played next to the HowLongToBeat length, with a
+  progress bar and the percentage, so "how far in am I?" is one glance instead of two numbers.
 - **🏅 Update missing Metascores** button: looks up scores for the games that don't have one yet, one at a time.
 
 ### Already started and hours already played

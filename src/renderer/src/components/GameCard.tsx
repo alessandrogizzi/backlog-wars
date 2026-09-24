@@ -1,10 +1,10 @@
 import { metacriticTone } from '@shared/catalog'
-import { formatMinutes, todayIso } from '@shared/format'
+import { todayIso } from '@shared/format'
 import type { Game } from '../db/types'
-import { hasStarted, manualMinutes, playedMinutes } from '../logic/duration'
+import { hasStarted } from '../logic/duration'
 import { observedPleasure } from '../logic/picker'
 import { useI18n } from '../i18n'
-import { Cover, DurationBadge, RatingDots, RetroChip, StatusBadge } from './ui'
+import { Cover, DurationBadge, PlaytimeMeter, RatingDots, RetroChip, StatusBadge } from './ui'
 
 export function GameCard({
   game,
@@ -63,39 +63,11 @@ export function GameCard({
         </div>
 
         <div className="game-card-flags">
-          <span className="game-card-flags-left">
-            <DurationBadge game={game} />
-            {game.usesDosbox === 1 ? <span className="badge dosbox-flag">{t('library.card.dosbox')}</span> : null}
-          </span>
-
-          <span
-            className="metacritic-preview"
-            title={
-              game.metacritic
-                ? `${t('library.card.metascoreOutOf100', { score: game.metacritic })}${
-                    game.mustPlay === 1 ? t('library.card.mustPlaySuffix') : ''
-                  }${game.metacriticSentiment ? t('library.card.sentimentSuffix', { sentiment: game.metacriticSentiment }) : ''}${
-                    game.metacriticReviewCount ? t('library.card.reviewsSuffix', { count: game.metacriticReviewCount }) : ''
-                  }`
-                : t('library.card.metascoreUnavailableHint')
-            }
-          >
-            <span className={`metascore small metascore-${metacriticTone(game.metacritic)}`}>
-              {game.metacritic ?? t('common.dash')}
-            </span>
-            {game.metacritic ? (
-              <span className="metacritic-preview-body">
-                <span className="metacritic-preview-text">{t('library.card.metacritic')}</span>
-                <span className="metascore-track">
-                  <span
-                    className={`metascore-fill fill-${metacriticTone(game.metacritic)}`}
-                    style={{ width: `${Math.min(100, Math.max(0, game.metacritic))}%` }}
-                  />
-                </span>
-              </span>
-            ) : null}
-          </span>
+          <DurationBadge game={game} />
+          {game.usesDosbox === 1 ? <span className="badge dosbox-flag">{t('library.card.dosbox')}</span> : null}
         </div>
+
+        <PlaytimeMeter game={game} />
 
         <div className="meters">
           <div className="meter-row">
@@ -109,18 +81,6 @@ export function GameCard({
         </div>
 
         <div className="game-card-stats">
-          <span
-            title={
-              manualMinutes(game) > 0
-                ? t('library.card.playedTimeManual', {
-                    time: formatMinutes(playedMinutes(game)),
-                    manual: formatMinutes(manualMinutes(game))
-                  })
-                : t('library.card.playedTimeSessions')
-            }
-          >
-            ⏱ {formatMinutes(playedMinutes(game))}
-          </span>
           <span title={t('library.card.sessions')}>🎬 {game.sessionCount}</span>
           {linkCount > 0 ? <span title={t('library.card.links', { count: linkCount })}>🔗 {linkCount}</span> : null}
           {hasStarted(game) && game.sessionCount === 0 ? (

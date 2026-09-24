@@ -64,13 +64,7 @@ export default {
 
   // Game card
   'library.card.metascore': 'Metascore {score}',
-  'library.card.metascoreOutOf100': 'Metascore {score}/100',
   'library.card.sentimentSuffix': ' · {sentiment}',
-  'library.card.reviewsSuffix': ' · {count} recensioni',
-  'library.card.mustPlaySuffix': ' · ★ Must Play',
-  'library.card.metacritic': 'Metacritic',
-  'library.card.metascoreUnavailableHint':
-    'Metascore non ancora disponibile: usa “Aggiorna i Metascore mancanti” in alto',
   'library.card.dosbox': 'DOSBox',
   'library.card.favoriteAdd': 'Aggiungi ai preferiti',
   'library.card.favoriteRemove': 'Rimuovi dai preferiti',
