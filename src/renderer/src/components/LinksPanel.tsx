@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { addLink, deleteLink, updateLink } from '../db/repo'
 import { LINK_LABELS, isLinkEdited, linkHost, normalizeUrl, type GameLink } from '../db/types'
-import { errorMessage, useI18n } from '../i18n'
+import { errorMessage, useI18n, type TranslateParams } from '../i18n'
 import { useApp } from '../state/app'
 import { useLinksForGame } from '../state/data'
 import { useToast } from '../state/toast'
@@ -19,6 +19,14 @@ const LINK_LABEL_KEYS: Record<string, string> = {
   Mod: 'links.label.mod',
   Forum: 'links.label.forum',
   Store: 'links.label.store'
+}
+
+/**
+ * Le etichette predefinite sono salvate nella forma canonica (la chiave di
+ * LINK_LABELS): a schermo si mostrano nella lingua attiva, come già fa la lista.
+ */
+function labelText(value: string, t: (key: string, params?: TranslateParams) => string): string {
+  return LINK_LABEL_KEYS[value] ? t(LINK_LABEL_KEYS[value]) : value
 }
 
 /** Preview thumbnail, falling back to the favicon and then to the generic icon. */
@@ -166,7 +174,7 @@ export function LinksPanel({ gameId }: { gameId: number }) {
         <input
           className="input"
           placeholder={t('links.label.placeholder')}
-          value={label}
+          value={labelText(label, t)}
           onChange={(event) => setLabel(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === 'Enter') void add()
@@ -214,7 +222,7 @@ export function LinksPanel({ gameId }: { gameId: number }) {
                       />
                       <input
                         className="input"
-                        value={editLabel}
+                        value={labelText(editLabel, t)}
                         placeholder={t('links.edit.label')}
                         onChange={(event) => setEditLabel(event.target.value)}
                       />
