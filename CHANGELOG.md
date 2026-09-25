@@ -3,6 +3,48 @@
 All notable changes to **Backlog Wars**.
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [1.2.0-beta.0] — 2026-09-25
+
+Two things asked for by hand: a sidebar that gets out of the way, and your own score on every game. Plus a pass on the
+game card, where the spacing and the alignment were off.
+
+> 🧪 **Experimental project.** The codebase, the tests, the documentation and the release pipeline are written by an AI
+> agent running inside **DeepSeek Harness** with the **`deepseek-flash`** model (DeepSeek-V4.1-Flash, reasoning effort
+> *high*). This release consumed **≈119.9 M tokens** (119.7 M cache-hit input, 0.08 M cache-miss input, 0.18 M output)
+> for an estimated cost of **≈$0.48 off-peak / ≈$0.96 peak**; the project so far totals **≈453.2 M tokens**
+> (**≈$2.41 / ≈$4.83**) at DeepSeek's published rates.
+
+### Added
+
+**Collapsible sidebar**
+- The `«` button reduces the sidebar to icons (72px) and gives the content the room; `»` brings it back, and the choice
+  is remembered between sessions (stored in the settings row, no schema change).
+- Collapsed, "Add game" becomes a `＋` button and the language switch stacks the two flags. The text is hidden with CSS
+  but stays in the DOM, every control keeps its `aria-label` and collapsed items gain a tooltip.
+
+**Personal score**
+- **Your score, 1-10**: a slider in *Quick ratings*, after effort, pleasure and priority. 0 means not rated yet.
+- The score also appears **on the card cover, next to the Metascore**, so their verdict and yours read together: the
+  Metascore keeps its dark plate with the band colour, yours is a filled accent pill (`★ 9`), and the tooltip spells it
+  out. It only appears when the game is actually rated.
+- The field is the hook for a **personal review** later on.
+
+### Changed
+- **The "Run started" toggle left Quick ratings**: it duplicated the switch that already lives in the edit form. The
+  started state is still reported by the *Run* stat card and set from the form.
+- **The game card breathes**: section headings take space below them (they used to touch the content: Metacritic,
+  Duration, Notes, links, session log), the box beside the action buttons is aligned with them (same column, 220px
+  minimum and growing with the labels), and the actions stay anchored to the footer even when the game has no
+  description.
+- **The segmented control** now fills its width — no empty space after the last segment — and has hover, press and a
+  visible focus ring, with the solid accent kept for the selected state.
+- **Preset link labels** (Guide, Cheats, Mod…) are shown translated in the composer and in the inline edit field,
+  instead of the canonical value stored in the database.
+
+### Fixed
+- Two more pairs of blocks glued together inside cards: the chip row before the link list (and its empty state) and the
+  "satisfaction by effort" table before its note.
+
 ## [1.1.0-beta.0] — 2026-09-25
 
 The interface gets a design system instead of a 2 250-line stylesheet, and the library cards show the comparison that
