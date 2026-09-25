@@ -1013,10 +1013,17 @@ input[type='range']::-webkit-slider-thumb {
    plate is near opaque and blur-backed instead of translucent: a bright cover
    (or a dark one) can no longer swallow it. The score band colours the border
    and the digits, never the fill. */
-.metacritic {
+/* I due voti della copertina: Metascore e il mio, uno accanto all'altro. */
+.cover-scores {
   position: absolute;
   top: var(--space-8);
   right: var(--space-8);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.metacritic {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1036,6 +1043,25 @@ input[type='range']::-webkit-slider-thumb {
 
 /* Two classes beat the plain .metascore-* rules further down the file, so the
    plate survives while the band still tints the badge. */
+/* Il mio voto: pieno d'accento, così non si confonde con la targhetta scura del
+   Metascore che gli sta accanto. */
+.my-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 34px;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-none);
+  box-shadow: var(--shadow-sm);
+}
+
 .metacritic.metascore-good,
 .metacritic.metascore-mixed,
 .metacritic.metascore-bad {

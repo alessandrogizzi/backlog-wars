@@ -3,6 +3,7 @@ import { todayIso } from '@shared/format'
 import type { Game } from '../db/types'
 import { hasStarted } from '../logic/duration'
 import { observedPleasure } from '../logic/picker'
+import { MAX_PERSONAL_SCORE, personalScore } from '../logic/score'
 import { useI18n } from '../i18n'
 import { Cover, PlaytimeMeter, RatingDots, RetroChip, StatusBadge } from './ui'
 
@@ -33,13 +34,25 @@ export function GameCard({
     <article className="game-card" onClick={() => onOpen(game)} tabIndex={0} onKeyDown={(event) => event.key === 'Enter' && onOpen(game)}>
       <div className="game-card-cover">
         <Cover game={game} />
-        {game.metacritic ? (
-          <span
-            className={`metacritic metascore-${metacriticTone(game.metacritic)}`}
-            title={`${t('library.card.metascore', { score: game.metacritic })}${game.metacriticSentiment ? t('library.card.sentimentSuffix', { sentiment: game.metacriticSentiment }) : ''}`}
-          >
-            {game.metacritic}
-            {game.mustPlay === 1 ? ' ★' : ''}
+        {game.metacritic || personalScore(game) > 0 ? (
+          <span className="cover-scores">
+            {game.metacritic ? (
+              <span
+                className={`metacritic metascore-${metacriticTone(game.metacritic)}`}
+                title={`${t('library.card.metascore', { score: game.metacritic })}${game.metacriticSentiment ? t('library.card.sentimentSuffix', { sentiment: game.metacriticSentiment }) : ''}`}
+              >
+                {game.metacritic}
+                {game.mustPlay === 1 ? ' ★' : ''}
+              </span>
+            ) : null}
+            {personalScore(game) > 0 ? (
+              <span
+                className="my-score"
+                title={t('library.card.myScore', { score: personalScore(game), max: MAX_PERSONAL_SCORE })}
+              >
+                ★ {personalScore(game)}
+              </span>
+            ) : null}
           </span>
         ) : null}
       </div>

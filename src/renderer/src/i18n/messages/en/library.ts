@@ -71,6 +71,7 @@ export default {
   // Game card
   'library.card.metascore': 'Metascore {score}',
   'library.card.sentimentSuffix': ' · {sentiment}',
+  'library.card.myScore': 'Your score: {score}/{max}',
   'library.card.dosbox': 'DOSBox',
   'library.card.favoriteAdd': 'Add to favorites',
   'library.card.favoriteRemove': 'Remove from favorites',
