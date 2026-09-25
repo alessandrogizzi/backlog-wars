@@ -64,7 +64,7 @@ the app is disabled by the `prefers-reduced-motion` block in `base.css`.
 (`--color-accent-faint`, `--color-gold-fill`, `--color-track`, …). Translucent variants are built with `color-mix()`
 instead of repeated `rgba()` triples, so they follow the theme automatically.
 
-**Layout and stacking** — `--layout-sidebar-width`, `--layout-content-max`, `--layout-modal-sm/md/lg`,
+**Layout and stacking** — `--layout-sidebar-width`, `--layout-sidebar-collapsed`, `--layout-content-max`, `--layout-modal-sm/md/lg`,
 `--control-height-sm/md/lg`, `--border-width`, `--z-base/sticky/overlay/modal/toast`.
 
 ## Graphic improvements in this pass

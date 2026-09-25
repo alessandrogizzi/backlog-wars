@@ -350,6 +350,8 @@
      ======================================================================== */
 
   --layout-sidebar-width: 250px;
+  /* Barra laterale ridotta: restano le icone. */
+  --layout-sidebar-collapsed: 72px;
   --layout-content-max: 1280px;
   --layout-modal-sm: 460px;
   --layout-modal-md: 620px;

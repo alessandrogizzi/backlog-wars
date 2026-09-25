@@ -49,6 +49,12 @@ Settings. Code comments are still mostly in Italian.
 
 ## ✨ Features
 
+### Interface
+- **Collapsible sidebar**: the `«` button reduces it to icons (and back), giving the content the extra room; the choice
+  is remembered between sessions.
+- Keyboard focus is visible everywhere, `prefers-reduced-motion` is honoured and the window follows your system colours
+  for native widgets.
+
 ### Library
 - Games with status (`In backlog`, `Playing`, `Completed`, `Dropped`, `Wishlist`), platform, genres, tags, notes, useful
   links, favourites and priority.

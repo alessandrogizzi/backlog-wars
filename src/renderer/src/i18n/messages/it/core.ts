@@ -9,6 +9,8 @@ export default {
   'app.addGame': '+ Aggiungi gioco',
   'app.version': 'v{version}',
   'app.gamesInLibrary': '{count} giochi in libreria',
+  'app.sidebar.collapse': 'Riduci la barra laterale',
+  'app.sidebar.expand': 'Espandi la barra laterale',
   'app.language': 'Lingua',
   'app.language.en': 'English',
   'app.language.it': 'Italiano',

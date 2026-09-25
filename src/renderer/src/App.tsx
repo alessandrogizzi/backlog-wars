@@ -3,6 +3,7 @@ import { ModalHost } from './components/ModalHost'
 import { LANGUAGES, useI18n } from './i18n'
 import { NAV_ITEMS, useApp } from './state/app'
 import { useGames } from './state/data'
+import { useSettings } from './state/settings'
 import { GameDetailView } from './views/GameDetailView'
 import { LibraryView } from './views/LibraryView'
 import { PickerView } from './views/PickerView'
@@ -15,6 +16,9 @@ export default function App() {
   const { view, go, openGameForm } = useApp()
   const { t, language, setLanguage } = useI18n()
   const games = useGames()
+  const { settings, save } = useSettings()
+  const collapsed = settings.sidebarCollapsed
+  const toggleSidebar = () => void save({ sidebarCollapsed: !collapsed })
   const [version, setVersion] = useState('1.0.0')
 
   useEffect(() => {
@@ -54,7 +58,7 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell" data-testid="app-shell">
+    <div className={`app-shell${collapsed ? ' is-collapsed' : ''}`} data-testid="app-shell">
       <aside className="sidebar">
         <div className="brand">
           <span className="brand-mark">⚔️</span>
@@ -62,6 +66,17 @@ export default function App() {
             <span className="brand-title">BACKLOG WARS</span>
             <span className="brand-sub">{t('app.tagline')}</span>
           </div>
+          <button
+            type="button"
+            className="sidebar-toggle"
+            onClick={toggleSidebar}
+            aria-expanded={!collapsed}
+            aria-label={t(collapsed ? 'app.sidebar.expand' : 'app.sidebar.collapse')}
+            title={t(collapsed ? 'app.sidebar.expand' : 'app.sidebar.collapse')}
+            data-testid="sidebar-toggle"
+          >
+            {collapsed ? '»' : '«'}
+          </button>
         </div>
 
         <nav className="nav">
@@ -72,6 +87,8 @@ export default function App() {
               data-testid="nav-item"
               className={`nav-item${activeNav === item.id ? ' active' : ''}`}
               onClick={() => go({ name: item.id })}
+              aria-label={t(item.labelKey)}
+              title={collapsed ? t(item.labelKey) : undefined}
             >
               <span className="nav-icon">{item.icon}</span>
               <span className="nav-text">
@@ -83,8 +100,17 @@ export default function App() {
         </nav>
 
         <div className="sidebar-footer">
-          <button type="button" className="btn primary block" onClick={() => openGameForm()}>
-            {t('app.addGame')}
+          <button
+            type="button"
+            className="btn primary block sidebar-add"
+            onClick={() => openGameForm()}
+            aria-label={t('app.addGame')}
+            title={collapsed ? t('app.addGame') : undefined}
+          >
+            <span className="sidebar-add-icon" aria-hidden="true">
+              ＋
+            </span>
+            <span className="sidebar-add-label">{t('app.addGame')}</span>
           </button>
 
           <div className="language-switch" title={t('app.language')}>
@@ -97,12 +123,12 @@ export default function App() {
                 aria-label={t(entry.labelKey)}
                 data-testid={`language-${entry.id}`}
               >
-                {entry.flag} {entry.id.toUpperCase()}
+                {entry.flag} <span className="lang-code">{entry.id.toUpperCase()}</span>
               </button>
             ))}
           </div>
 
-          <span className="muted small">
+          <span className="muted small sidebar-meta">
             v{version} · {t('app.gamesInLibrary', { count: games?.length ?? 0 })}
           </span>
         </div>

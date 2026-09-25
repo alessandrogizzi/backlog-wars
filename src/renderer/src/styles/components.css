@@ -13,6 +13,13 @@
   display: grid;
   grid-template-columns: var(--layout-sidebar-width) 1fr;
   height: 100vh;
+  /* Ridurre la barra è un movimento, non uno scatto. */
+  transition: grid-template-columns var(--duration-base) var(--ease-standard);
+}
+
+/* Barra laterale ridotta: restano le icone, il testo sparisce. */
+.app-shell.is-collapsed {
+  grid-template-columns: var(--layout-sidebar-collapsed) 1fr;
 }
 
 .sidebar {
@@ -54,6 +61,72 @@
   font-size: var(--font-size-2);
   color: var(--color-text-muted);
   letter-spacing: var(--tracking-wide);
+}
+
+.sidebar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: auto;
+  padding: 0;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-6);
+  line-height: var(--line-height-none);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.sidebar-toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------- Barra ridotta --------------------------- */
+/* Solo icone: il testo è nascosto ma resta nel DOM (e il nome accessibile
+   arriva da aria-label, quindi non si perde nulla per gli screen reader). */
+
+/* Nella barra ridotta il marchio va sopra il pulsante di espansione. */
+.is-collapsed .sidebar .brand {
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.is-collapsed .sidebar .sidebar-add-icon {
+  display: inline;
+}
+
+.sidebar-add-icon {
+  display: none;
+}
+
+.is-collapsed .sidebar .sidebar-toggle {
+  margin-left: 0;
+}
+
+.is-collapsed .sidebar .brand-text,
+.is-collapsed .sidebar .nav-text,
+.is-collapsed .sidebar .sidebar-add-label,
+.is-collapsed .sidebar .lang-code,
+.is-collapsed .sidebar .sidebar-meta {
+  display: none;
+}
+
+.is-collapsed .sidebar .nav-item {
+  justify-content: center;
+}
+
+.is-collapsed .sidebar .language-switch {
+  flex-direction: column;
 }
 
 .nav {

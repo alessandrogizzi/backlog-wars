@@ -327,6 +327,8 @@ export type AppLanguage = 'en' | 'it'
 export interface AppSettings {
   /** Interface language (English is the default). */
   language: AppLanguage
+  /** Sidebar reduced to icons, to give the content more room. */
+  sidebarCollapsed: boolean
   rawgApiKey: string
   defaultProvider: ProviderChoice
   steamCountry: string
@@ -353,6 +355,7 @@ export interface AppSettings {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   language: 'en',
+  sidebarCollapsed: false,
   rawgApiKey: '',
   defaultProvider: 'auto',
   steamCountry: 'IT',

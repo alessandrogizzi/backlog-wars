@@ -11,6 +11,8 @@ export default {
   'app.addGame': '+ Add game',
   'app.version': 'v{version}',
   'app.gamesInLibrary': '{count} games in library',
+  'app.sidebar.collapse': 'Collapse the sidebar',
+  'app.sidebar.expand': 'Expand the sidebar',
   'app.language': 'Language',
   'app.language.en': 'English',
   'app.language.it': 'Italiano',
