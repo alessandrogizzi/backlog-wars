@@ -1239,6 +1239,13 @@ input[type='range']::-webkit-slider-thumb {
   flex-direction: column;
   gap: var(--space-5);
   min-width: 0;
+  /* La colonna arriva in fondo alla copertina, così le azioni restano ancorate
+     al fondo della scheda anche quando non c'è una descrizione a riempire. */
+  align-self: stretch;
+}
+
+.detail-info > .view-actions {
+  margin-top: auto;
 }
 
 .detail-title-row {
