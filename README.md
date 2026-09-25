@@ -58,8 +58,9 @@ Settings. Code comments are still mostly in Italian.
 ### Library
 - Games with status (`In backlog`, `Playing`, `Completed`, `Dropped`, `Wishlist`), platform, genres, tags, notes, useful
   links, favourites and priority.
-- Per game: **effort** (1-5), **pleasure** (1-5), **priority** (1-5), **HowLongToBeat durations**, cover, description,
-  release year, Metacritic and external link.
+- Per game: **effort** (1-5), **pleasure** (1-5), **priority** (1-5), a **personal score** (1-10, my own verdict next
+  to the Metascore and the hook for a personal review), **HowLongToBeat durations**, cover, description, release year,
+  Metacritic and external link.
 - Search, filters (text, status, platform, **platform group**, genre, favourites, **Metascore 75+**, **no score**) and
   many sort orders (title, **Metascore**, effort, demonstrated pleasure, priority, time played, **estimated duration**,
   **time left**, last session).
@@ -196,7 +197,7 @@ npm run release:beta # verify + AppImage + deb
 ## 📦 Release
 
 ```bash
-npm run release:beta   # verify (tokens + typecheck + 216 tests + build) + AppImage + deb into release/
+npm run release:beta   # verify (tokens + typecheck + 219 tests + build) + AppImage + deb into release/
 npm run dist:linux     # AppImage only
 npm run dist:deb       # .deb only (uses scripts/build-deb.mjs)
 ```
@@ -219,7 +220,7 @@ The order is always: commit, then bump, then tag, then build.
 
 ```bash
 git commit -m "fix: align library card footers"   # one commit per change, no --amend on pushed work
-npm run verify                                    # lint:tokens + typecheck + 216 tests + build must be green
+npm run verify                                    # lint:tokens + typecheck + 219 tests + build must be green
 # write the new CHANGELOG.md section and docs/releases/<version>.md, commit them
 npm version prerelease --preid=beta               # 1.0.0-beta.1 -> 1.0.0-beta.2 (commits + tags)
 npm version patch                                 # or: finalises the beta to 1.0.0 / 1.0.1 after it
@@ -313,7 +314,7 @@ migrations are automatic and keep existing data.
 
 - `npm run lint:tokens` — design-token guard: every `var()` is declared and no component hardcodes a colour,
 a spacing step, a font size or a radius.
-- `npm test` — **216 unit tests**: useful links (URL normalisation, hosts, Open Graph/Twitter parsing, CRUD, cascade,
+- `npm test` — **219 unit tests**: useful links (URL normalisation, hosts, Open Graph/Twitter parsing, CRUD, cascade,
   backup), selection engine (including duration fit), library filters and sorting (Metascore and effective time), notes
   (CRUD, timestamps, cascade, backup) and **v1 → v2 → v3 migrations**, declared progress (hours played elsewhere, time
   left, statistics), tournament, statistics, duration logic, title matching, RAWG/Steam/HowLongToBeat/GOG/GOGDB/Metacritic

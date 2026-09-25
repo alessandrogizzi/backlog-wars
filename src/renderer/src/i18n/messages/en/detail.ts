@@ -85,9 +85,9 @@ export default {
   'detail.quick.title': 'Quick ratings',
   'detail.quick.status': 'Library status',
   'detail.quick.effort': 'Effort required',
-  'detail.quick.started': 'Run started',
-  'detail.quick.startedAt': 'Started on {date}',
-  'detail.quick.startedHint': 'Useful for games picked up after a long time',
+  'detail.quick.score': 'Your score',
+  'detail.quick.scoreValue': '{score}/{max}',
+  'detail.quick.scoreHint': 'not rated yet',
 
   // Playtime
   'detail.playtime.label': 'Hours already played (outside the app)',
@@ -112,8 +112,6 @@ export default {
   'detail.toast.durationsUpdated': 'Durations updated.',
   'detail.toast.hoursSaved': 'Already-played hours saved: {duration}.',
   'detail.toast.hoursReset': 'Already-played hours reset.',
-  'detail.toast.started': 'Marked as already started.',
-  'detail.toast.notStarted': 'Marked as not started yet.',
   'detail.toast.metacriticNoMatch': 'No reliable Metacritic entry: pick from the suggestions.',
   'detail.toast.metascoreFrom': 'Metascore {score} from “{title}”.',
   'detail.toast.metascore': 'Metascore {score}: {title}.',

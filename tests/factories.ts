@@ -12,6 +12,7 @@ export function makeGame(overrides: Partial<Game> = {}): Game {
     effortEstimate: 3,
     pleasure: 3,
     priority: 3,
+    personalScore: 0,
     favorite: 0,
     addedAt: 0,
     updatedAt: 0,

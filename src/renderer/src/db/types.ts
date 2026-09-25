@@ -42,6 +42,12 @@ export interface Game {
   pleasure: number
   /** Personal priority (1-5). */
   priority: number
+  /**
+   * Personal score (1-10; 0 or missing = not rated yet): my own verdict on the
+   * game, independent of Metacritic. It is the hook for a personal review.
+   * Optional because games saved before it existed do not carry it.
+   */
+  personalScore?: number
   /** IndexedDB does not index booleans: 0/1. */
   favorite: 0 | 1
   /**
@@ -218,6 +224,7 @@ export function emptyDraft(overrides: Partial<GameDraft> = {}): GameDraft {
     effortEstimate: 3,
     pleasure: 3,
     priority: 3,
+    personalScore: 0,
     favorite: 0,
     ...overrides
   }

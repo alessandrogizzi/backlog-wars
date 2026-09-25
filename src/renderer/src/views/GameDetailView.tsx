@@ -25,7 +25,6 @@ import {
   Loading,
   RatingDots,
   RetroChip,
-  Segmented,
   StatCard
 } from '../components/ui'
 import {
@@ -38,6 +37,7 @@ import {
   remainingMinutes
 } from '../logic/duration'
 import { observedPleasure } from '../logic/picker'
+import { MAX_PERSONAL_SCORE, personalScore } from '../logic/score'
 import { useApp } from '../state/app'
 import { useGame, useSessionsForGame } from '../state/data'
 import { useSettings } from '../state/settings'
@@ -170,14 +170,6 @@ export function GameDetailView({ gameId }: { gameId: number }) {
       minutes ? t('detail.toast.hoursSaved', { duration: formatDuration(minutes) }) : t('detail.toast.hoursReset'),
       'ok'
     )
-  }
-
-  const toggleStarted = async (started: boolean): Promise<void> => {
-    await updateGame(gameId, {
-      startedAt: started ? (game.startedAt ?? Date.now()) : undefined,
-      status: started && (game.status === 'backlog' || game.status === 'wishlist') ? 'playing' : game.status
-    })
-    notify(t(started ? 'detail.toast.started' : 'detail.toast.notStarted'), 'ok')
   }
 
   const refreshMetacritic = async (): Promise<void> => {
@@ -664,28 +656,29 @@ export function GameDetailView({ gameId }: { gameId: number }) {
             <span className="muted small">{t(pleasureKey(game.pleasure))}</span>
           </div>
           <div className="rating-block">
-            <span className="field-label">{t('detail.quick.started')}</span>
-            <Segmented
-              options={[
-                { value: 'no', label: t('detail.notStarted') },
-                { value: 'si', label: t('detail.started') }
-              ]}
-              value={hasStarted(game) ? 'si' : 'no'}
-              onChange={(value) => void toggleStarted(value === 'si')}
-            />
-            <span className="muted small">
-              {game.startedAt
-                ? t('detail.quick.startedAt', { date: formatDate(todayIso(game.startedAt)) })
-                : t('detail.quick.startedHint')}
-            </span>
-          </div>
-          <div className="rating-block">
             <span className="field-label">{t('label.priority')}</span>
             <RatingDots
               value={game.priority}
               tone="priority"
               onChange={(value) => void updateGame(gameId, { priority: value })}
             />
+          </div>
+          <div className="rating-block">
+            <span className="field-label">{t('detail.quick.score')}</span>
+            <input
+              type="range"
+              min={0}
+              max={MAX_PERSONAL_SCORE}
+              step={1}
+              value={personalScore(game)}
+              aria-label={t('detail.quick.score')}
+              onChange={(event) => void updateGame(gameId, { personalScore: Number(event.target.value) })}
+            />
+            <span className="muted small">
+              {personalScore(game) > 0
+                ? t('detail.quick.scoreValue', { score: personalScore(game), max: MAX_PERSONAL_SCORE })
+                : t('detail.quick.scoreHint')}
+            </span>
           </div>
         </div>
 
