@@ -336,6 +336,9 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-5);
+  /* Il titolo dentro la testa porta già il suo margine, ma i pulsanti accanto
+     sono più alti: senza questo, il contenuto sotto la testa la tocca. */
+  margin-bottom: var(--space-5);
 }
 
 .field {
@@ -2185,7 +2188,7 @@ input[type='range']::-webkit-slider-thumb {
 
 .link-list {
   list-style: none;
-  margin: var(--space-6) 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;

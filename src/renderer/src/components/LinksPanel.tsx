@@ -177,107 +177,109 @@ export function LinksPanel({ gameId }: { gameId: number }) {
         </button>
       </div>
 
-      <div className="chip-group">
-        {LINK_LABELS.map((entry) => (
-          <button
-            key={entry}
-            type="button"
-            className={`chip${label === entry ? ' active' : ''}`}
-            onClick={() => setLabel((current) => (current === entry ? '' : entry))}
-          >
-            {t(LINK_LABEL_KEYS[entry])}
-          </button>
-        ))}
-      </div>
-
-      {list.length === 0 ? (
-        <EmptyState
-          icon="🔗"
-          title={t('links.empty.title')}
-          message={t('links.empty.message')}
-        />
-      ) : (
-        <ul className="link-list">
-          {list.map((link) => (
-            <li key={link.id} className="link-item">
-              <LinkThumb link={link} />
-
-              <div className="link-body">
-                {editingId === link.id ? (
-                  <div className="link-edit">
-                    <input
-                      className="input"
-                      value={editTitle}
-                      placeholder={t('links.edit.title')}
-                      onChange={(event) => setEditTitle(event.target.value)}
-                    />
-                    <input
-                      className="input"
-                      value={editLabel}
-                      placeholder={t('links.edit.label')}
-                      onChange={(event) => setEditLabel(event.target.value)}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <div className="link-head">
-                      {link.label ? (
-                        <span className="badge badge-neutral">
-                          {LINK_LABEL_KEYS[link.label] ? t(LINK_LABEL_KEYS[link.label]) : link.label}
-                        </span>
-                      ) : null}
-                      <strong>{link.title ?? link.host ?? link.url}</strong>
-                    </div>
-                    {link.description ? <p className="link-description">{link.description}</p> : null}
-                    <div className="link-meta">
-                      <span className="link-host">{link.host ?? linkHost(link.url)}</span>
-                      <span className="muted small">
-                        {t('links.addedAt', { date: formatDateTime(link.createdAt) })}
-                        {isLinkEdited(link) ? t('links.updatedAt', { date: formatDateTime(link.updatedAt) }) : ''}
-                        {link.previewFetchedAt ? t('links.previewed') : ''}
-                      </span>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              <div className="link-actions">
-                {editingId === link.id ? (
-                  <>
-                    <button type="button" className="btn small primary" onClick={() => void saveEdit(link)}>
-                      {t('common.save')}
-                    </button>
-                    <button type="button" className="btn small ghost" onClick={() => setEditingId(null)}>
-                      {t('common.cancel')}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button type="button" className="btn small primary" onClick={() => open(link)}>
-                      {t('common.open')}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn small ghost"
-                      onClick={() => link.id !== undefined && void refreshPreview(link.id, link.url)}
-                      disabled={previewingId === link.id}
-                      title={t('links.preview.title')}
-                    >
-                      {previewingId === link.id ? '…' : t('links.preview')}
-                    </button>
-                    <button type="button" className="btn small ghost" onClick={() => startEdit(link)}>
-                      {t('common.edit')}
-                    </button>
-                    <button type="button" className="btn small ghost danger" onClick={() => void remove(link)}>
-                      {t('common.delete')}
-                    </button>
-                  </>
-                )}
-              </div>
-            </li>
+      <div className="stack">
+        <div className="chip-group">
+          {LINK_LABELS.map((entry) => (
+            <button
+              key={entry}
+              type="button"
+              className={`chip${label === entry ? ' active' : ''}`}
+              onClick={() => setLabel((current) => (current === entry ? '' : entry))}
+            >
+              {t(LINK_LABEL_KEYS[entry])}
+            </button>
           ))}
-        </ul>
-      )}
+        </div>
+
+        {list.length === 0 ? (
+          <EmptyState
+            icon="🔗"
+            title={t('links.empty.title')}
+            message={t('links.empty.message')}
+          />
+        ) : (
+          <ul className="link-list">
+            {list.map((link) => (
+              <li key={link.id} className="link-item">
+                <LinkThumb link={link} />
+
+                <div className="link-body">
+                  {editingId === link.id ? (
+                    <div className="link-edit">
+                      <input
+                        className="input"
+                        value={editTitle}
+                        placeholder={t('links.edit.title')}
+                        onChange={(event) => setEditTitle(event.target.value)}
+                      />
+                      <input
+                        className="input"
+                        value={editLabel}
+                        placeholder={t('links.edit.label')}
+                        onChange={(event) => setEditLabel(event.target.value)}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="link-head">
+                        {link.label ? (
+                          <span className="badge badge-neutral">
+                            {LINK_LABEL_KEYS[link.label] ? t(LINK_LABEL_KEYS[link.label]) : link.label}
+                          </span>
+                        ) : null}
+                        <strong>{link.title ?? link.host ?? link.url}</strong>
+                      </div>
+                      {link.description ? <p className="link-description">{link.description}</p> : null}
+                      <div className="link-meta">
+                        <span className="link-host">{link.host ?? linkHost(link.url)}</span>
+                        <span className="muted small">
+                          {t('links.addedAt', { date: formatDateTime(link.createdAt) })}
+                          {isLinkEdited(link) ? t('links.updatedAt', { date: formatDateTime(link.updatedAt) }) : ''}
+                          {link.previewFetchedAt ? t('links.previewed') : ''}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="link-actions">
+                  {editingId === link.id ? (
+                    <>
+                      <button type="button" className="btn small primary" onClick={() => void saveEdit(link)}>
+                        {t('common.save')}
+                      </button>
+                      <button type="button" className="btn small ghost" onClick={() => setEditingId(null)}>
+                        {t('common.cancel')}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button type="button" className="btn small primary" onClick={() => open(link)}>
+                        {t('common.open')}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn small ghost"
+                        onClick={() => link.id !== undefined && void refreshPreview(link.id, link.url)}
+                        disabled={previewingId === link.id}
+                        title={t('links.preview.title')}
+                      >
+                        {previewingId === link.id ? '…' : t('links.preview')}
+                      </button>
+                      <button type="button" className="btn small ghost" onClick={() => startEdit(link)}>
+                        {t('common.edit')}
+                      </button>
+                      <button type="button" className="btn small ghost danger" onClick={() => void remove(link)}>
+                        {t('common.delete')}
+                      </button>
+                    </>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   )
 }

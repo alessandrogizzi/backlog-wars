@@ -165,35 +165,37 @@ export function StatsView() {
 
         <section className="card">
           <h2 className="section-title">{t('stats.effortSatisfaction.title')}</h2>
-          <table className="table compact">
-            <thead>
-              <tr>
-                <th>{t('label.effort')}</th>
-                <th>{t('stats.table.sessions')}</th>
-                <th>{t('label.duration')}</th>
-                <th>{t('stats.kpi.avgSatisfaction')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dashboard.effortBuckets.map((bucket) => (
-                <tr key={bucket.effort}>
-                  <td>
-                    <span className="effort-pill">{bucket.effort}/5</span>
-                    <span className="bar-inline">
-                      <span
-                        className="bar-inline-fill"
-                        style={{ width: `${(bucket.sessions / maxEffortSessions) * 100}%` }}
-                      />
-                    </span>
-                  </td>
-                  <td>{bucket.sessions}</td>
-                  <td>{formatMinutes(bucket.minutes)}</td>
-                  <td>{bucket.avgSatisfaction !== null ? `${bucket.avgSatisfaction}/5` : '—'}</td>
+          <div className="stack">
+            <table className="table compact">
+              <thead>
+                <tr>
+                  <th>{t('label.effort')}</th>
+                  <th>{t('stats.table.sessions')}</th>
+                  <th>{t('label.duration')}</th>
+                  <th>{t('stats.kpi.avgSatisfaction')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="muted small">{t('stats.effortSatisfaction.hint')}</p>
+              </thead>
+              <tbody>
+                {dashboard.effortBuckets.map((bucket) => (
+                  <tr key={bucket.effort}>
+                    <td>
+                      <span className="effort-pill">{bucket.effort}/5</span>
+                      <span className="bar-inline">
+                        <span
+                          className="bar-inline-fill"
+                          style={{ width: `${(bucket.sessions / maxEffortSessions) * 100}%` }}
+                        />
+                      </span>
+                    </td>
+                    <td>{bucket.sessions}</td>
+                    <td>{formatMinutes(bucket.minutes)}</td>
+                    <td>{bucket.avgSatisfaction !== null ? `${bucket.avgSatisfaction}/5` : '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="muted small">{t('stats.effortSatisfaction.hint')}</p>
+          </div>
         </section>
       </div>
 
