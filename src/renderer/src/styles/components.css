@@ -1877,6 +1877,47 @@ input[type='range']::-webkit-slider-thumb {
   align-items: start;
 }
 
+/* Scheda di gioco: titolo e contenuto a sinistra, azioni e riquadro a destra
+   nella stessa colonna. Così il riquadro è largo esattamente quanto la riga dei
+   pulsanti sopra di lui, qualunque cosa faccia la lingua. */
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, auto);
+  gap: var(--space-5) var(--space-9);
+  align-items: start;
+}
+
+.detail-grid > .section-title {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.detail-grid-content {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}
+
+.detail-grid-side {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* I pulsanti riempiono la colonna: la riga delle azioni e il riquadro sotto di
+   lei hanno gli stessi bordi, in qualunque lingua. */
+.detail-grid-side .view-actions > .btn {
+  flex: 1 1 auto;
+}
+
+/* La colonna la dimensiona la riga dei pulsanti: il testo del riquadro non la
+   allarga, si adatta lui andando a capo. */
+.detail-grid-side > .stat-card {
+  contain: inline-size;
+}
+
 .duration-actions {
   display: flex;
   flex-direction: column;

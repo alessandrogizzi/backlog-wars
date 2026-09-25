@@ -395,9 +395,79 @@ export function GameDetailView({ gameId }: { gameId: number }) {
         />
       </section>
 
-      <section className="card">
-        <div className="section-head">
-          <h2 className="section-title">🏅 {t('detail.metacritic.title')}</h2>
+      <section className="card detail-grid">
+        <h2 className="section-title">🏅 {t('detail.metacritic.title')}</h2>
+
+        <div className="detail-grid-content">
+        <div className="metacritic-card-head">
+          <span className={`metascore metascore-${metacriticTone(game.metacritic)}`}>{game.metacritic ?? '—'}</span>
+          <span className="muted small">
+            Metascore · {t(toneKey(game.metacritic))}
+            {game.metacriticReviewCount ? ` · ${t('detail.metacritic.reviews', { count: game.metacriticReviewCount })}` : ''}
+            {game.metacriticSentiment ? ` · ${game.metacriticSentiment}` : ''}
+          </span>
+          {game.mustPlay === 1 ? <span className="badge badge-mustplay">★ Must Play</span> : null}
+          {game.metacriticSource ? (
+            <span className="badge badge-neutral">{t('detail.metacritic.source', { source: game.metacriticSource })}</span>
+          ) : null}
+        </div>
+
+        {metacriticDetails && metacriticDetails.platformScores.length > 0 ? (
+          <div className="platform-scores">
+            <span className="field-label">{t('detail.metacritic.platformScores')}</span>
+            {metacriticDetails.platformScores.map((entry) => (
+              <div key={entry.platform} className="platform-score-row">
+                <span>{entry.platform}</span>
+                <span className={`metascore small metascore-${metacriticTone(entry.score)}`}>
+                  {entry.score ?? '—'}
+                </span>
+                <span className="muted">
+                  {entry.reviewCount ? t('detail.metacritic.reviews', { count: entry.reviewCount }) : t('detail.metacritic.noVotes')}
+                  {entry.releaseDate ? ` · ${formatDate(entry.releaseDate)}` : ''}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {metacriticDetails &&
+        (metacriticDetails.positiveCount !== undefined || metacriticDetails.negativeCount !== undefined) ? (
+          <p className="muted small">
+            {t('detail.metacritic.critics', {
+              positive: metacriticDetails.positiveCount ?? 0,
+              neutral: metacriticDetails.neutralCount ?? 0,
+              negative: metacriticDetails.negativeCount ?? 0
+            })}
+          </p>
+        ) : null}
+
+        {!game.metacritic && !metacriticBusy ? (
+          <p className="muted small">{t('detail.metacritic.empty')}</p>
+        ) : null}
+
+        {metacriticCandidates.length > 0 ? (
+          <ul className="suggestion-list">
+            {metacriticCandidates.map((candidate) => (
+              <li key={candidate.id} className="suggestion-row">
+                <span>
+                  <span className={`metascore small metascore-${metacriticTone(candidate.score)}`}>
+                    {candidate.score ?? '—'}
+                  </span>{' '}
+                  <strong>{candidate.title}</strong>{' '}
+                  <span className="muted small">
+                    {candidate.year ?? '—'} · {candidate.platforms.slice(0, 3).join(', ') || t('detail.metacritic.noPlatforms')}
+                  </span>
+                </span>
+                <button type="button" className="btn small ghost" onClick={() => void useMetacriticCandidate(candidate)}>
+                  {t('detail.metacritic.use')}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        </div>
+
+        <div className="detail-grid-side">
           <div className="view-actions">
             <button type="button" className="btn small" onClick={() => void refreshMetacritic()} disabled={metacriticBusy}>
               {metacriticBusy ? t('common.searching') : game.metacritic ? t('detail.metacritic.update') : t('detail.metacritic.search')}
@@ -416,120 +486,28 @@ export function GameDetailView({ gameId }: { gameId: number }) {
               </button>
             ) : null}
           </div>
-        </div>
 
-        <div className="duration-panel">
-          <div>
-            <div className="metacritic-card-head">
-              <span className={`metascore metascore-${metacriticTone(game.metacritic)}`}>{game.metacritic ?? '—'}</span>
-              <span className="muted small">
-                Metascore · {t(toneKey(game.metacritic))}
-                {game.metacriticReviewCount ? ` · ${t('detail.metacritic.reviews', { count: game.metacriticReviewCount })}` : ''}
-                {game.metacriticSentiment ? ` · ${game.metacriticSentiment}` : ''}
-              </span>
-              {game.mustPlay === 1 ? <span className="badge badge-mustplay">★ Must Play</span> : null}
-              {game.metacriticSource ? (
-                <span className="badge badge-neutral">{t('detail.metacritic.source', { source: game.metacriticSource })}</span>
-              ) : null}
-            </div>
-
-            {metacriticDetails && metacriticDetails.platformScores.length > 0 ? (
-              <div className="platform-scores">
-                <span className="field-label">{t('detail.metacritic.platformScores')}</span>
-                {metacriticDetails.platformScores.map((entry) => (
-                  <div key={entry.platform} className="platform-score-row">
-                    <span>{entry.platform}</span>
-                    <span className={`metascore small metascore-${metacriticTone(entry.score)}`}>
-                      {entry.score ?? '—'}
-                    </span>
-                    <span className="muted">
-                      {entry.reviewCount ? t('detail.metacritic.reviews', { count: entry.reviewCount }) : t('detail.metacritic.noVotes')}
-                      {entry.releaseDate ? ` · ${formatDate(entry.releaseDate)}` : ''}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : null}
-
-            {metacriticDetails &&
-            (metacriticDetails.positiveCount !== undefined || metacriticDetails.negativeCount !== undefined) ? (
-              <p className="muted small">
-                {t('detail.metacritic.critics', {
-                  positive: metacriticDetails.positiveCount ?? 0,
-                  neutral: metacriticDetails.neutralCount ?? 0,
-                  negative: metacriticDetails.negativeCount ?? 0
-                })}
-              </p>
-            ) : null}
-
-            {!game.metacritic && !metacriticBusy ? (
-              <p className="muted small">{t('detail.metacritic.empty')}</p>
-            ) : null}
-
-            {metacriticCandidates.length > 0 ? (
-              <ul className="suggestion-list">
-                {metacriticCandidates.map((candidate) => (
-                  <li key={candidate.id} className="suggestion-row">
-                    <span>
-                      <span className={`metascore small metascore-${metacriticTone(candidate.score)}`}>
-                        {candidate.score ?? '—'}
-                      </span>{' '}
-                      <strong>{candidate.title}</strong>{' '}
-                      <span className="muted small">
-                        {candidate.year ?? '—'} · {candidate.platforms.slice(0, 3).join(', ') || t('detail.metacritic.noPlatforms')}
-                      </span>
-                    </span>
-                    <button type="button" className="btn small ghost" onClick={() => void useMetacriticCandidate(candidate)}>
-                      {t('detail.metacritic.use')}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-          <div className="duration-actions">
-            <StatCard
-              label={t('detail.metacritic.tone')}
-              value={
-                game.metacritic
-                  ? game.metacritic >= 75
-                    ? t('detail.metacritic.tone.good')
-                    : game.metacritic >= 50
-                      ? t('detail.metacritic.tone.mixed')
-                      : t('detail.metacritic.tone.bad')
-                  : '—'
-              }
-              hint={t('detail.metacritic.tone.hint')}
-              tone={game.metacritic && game.metacritic >= 75 ? 'good' : 'default'}
-            />
-          </div>
+          <StatCard
+            label={t('detail.metacritic.tone')}
+            value={
+              game.metacritic
+                ? game.metacritic >= 75
+                  ? t('detail.metacritic.tone.good')
+                  : game.metacritic >= 50
+                    ? t('detail.metacritic.tone.mixed')
+                    : t('detail.metacritic.tone.bad')
+                : '—'
+            }
+            hint={t('detail.metacritic.tone.hint')}
+            tone={game.metacritic && game.metacritic >= 75 ? 'good' : 'default'}
+          />
         </div>
       </section>
 
-      <section className="card">
-        <div className="section-head">
-          <h2 className="section-title">⏳ {t('detail.duration.title')}</h2>
-          <div className="view-actions">
-            <button type="button" className="btn small" onClick={() => void refreshDurations()} disabled={durationBusy}>
-              {durationBusy ? t('common.searching') : t('detail.duration.update')}
-            </button>
-            {game.hltbId ? (
-              <button
-                type="button"
-                className="btn small ghost"
-                onClick={() =>
-                  void window.backlog.openExternal(`https://howlongtobeat.com/game/${game.hltbId}`).then((result) => {
-                    if (!result.ok) notify(errorMessage(t, result), 'error')
-                  })
-                }
-              >
-                {t('detail.duration.open')}
-              </button>
-            ) : null}
-          </div>
-        </div>
-        <div className="duration-panel">
-          <div>
+      <section className="card detail-grid">
+        <h2 className="section-title">⏳ {t('detail.duration.title')}</h2>
+
+        <div className="detail-grid-content">
             <DurationBars game={game} />
             {durationCandidates.length > 0 ? (
               <ul className="suggestion-list">
@@ -561,19 +539,38 @@ export function GameDetailView({ gameId }: { gameId: number }) {
                 ))}
               </ul>
             ) : null}
+        </div>
+
+        <div className="detail-grid-side">
+          <div className="view-actions">
+            <button type="button" className="btn small" onClick={() => void refreshDurations()} disabled={durationBusy}>
+              {durationBusy ? t('common.searching') : t('detail.duration.update')}
+            </button>
+            {game.hltbId ? (
+              <button
+                type="button"
+                className="btn small ghost"
+                onClick={() =>
+                  void window.backlog.openExternal(`https://howlongtobeat.com/game/${game.hltbId}`).then((result) => {
+                    if (!result.ok) notify(errorMessage(t, result), 'error')
+                  })
+                }
+              >
+                {t('detail.duration.open')}
+              </button>
+            ) : null}
           </div>
-          <div className="duration-actions">
-            {referenceMinutes(game) ? (
-              <StatCard
-                label={t('detail.duration.remaining')}
-                value={formatDuration(remainingMinutes(game))}
-                hint={t('detail.stat.progress.hint', { duration: formatDuration(referenceMinutes(game)) })}
-                tone="accent"
-              />
-            ) : (
-              <p className="muted small">{t('detail.duration.empty')}</p>
-            )}
-          </div>
+
+          {referenceMinutes(game) ? (
+            <StatCard
+              label={t('detail.duration.remaining')}
+              value={formatDuration(remainingMinutes(game))}
+              hint={t('detail.stat.progress.hint', { duration: formatDuration(referenceMinutes(game)) })}
+              tone="accent"
+            />
+          ) : (
+            <p className="muted small">{t('detail.duration.empty')}</p>
+          )}
         </div>
       </section>
 
