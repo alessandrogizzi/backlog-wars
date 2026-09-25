@@ -506,17 +506,40 @@
   overflow: hidden;
 }
 
+/* I segmenti si dividono la larghezza del controllo: niente spazio vuoto in
+   fondo, qualunque cosa facciano le etichette nelle varie lingue. */
 .segment {
+  flex: 1 1 auto;
+  min-width: 0;
   padding: var(--space-4) var(--space-7);
   background: var(--color-surface-raised);
   border: none;
   cursor: pointer;
   font-weight: var(--font-weight-semibold);
+  transition: var(--transition-control);
+}
+
+/* Gerarchia dei tre stati: selezione (pieno) > pressione > passaggio del
+   mouse. Il violino pieno resta alla selezione, così "acceso" si distingue da
+   "sotto il cursore". */
+.segment:hover:not(.active) {
+  background: var(--color-accent-faint);
+}
+
+.segment:active:not(.active) {
+  background: var(--color-accent-soft-fill);
 }
 
 .segment.active {
   background: var(--color-accent);
   color: var(--color-text-on-accent);
+}
+
+/* Il contenitore ha overflow: hidden, quindi l'outline va disegnato all'interno
+   del segmento o verrebbe tagliato. */
+.segment:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: calc(var(--focus-ring-width) * -1);
 }
 
 /* ------------------------------ Slider/Rating --------------------------- */
